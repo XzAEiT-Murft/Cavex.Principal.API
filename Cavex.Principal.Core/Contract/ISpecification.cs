@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Cavex.Principal.Core.Specifications
+namespace Cavex.Principal.Core.Contract
 {
     public interface ISpecification<T>
     {
@@ -35,4 +35,3 @@ namespace Cavex.Principal.Core.Specifications
         Expression<Func<T, TResult>>? Select { get; }
     }
 }
-

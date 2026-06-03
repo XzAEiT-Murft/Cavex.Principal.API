@@ -6,4 +6,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Config\" />
+    <Folder Include="Data\seedData\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
+
 </Project>
