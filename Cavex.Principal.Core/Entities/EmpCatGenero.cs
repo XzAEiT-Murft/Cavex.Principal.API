@@ -5,15 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Cavex.Principal.Core.Entities
-
-
-
 {
-    internal class EmpCatNacionalidad : BaseEntity
+    internal class EmpCatGenero:BaseEntity
     {
-        public required string StrValor { get; set; }
-        public string? StrDescripcion { get; set; }
-        public EmpCatNacionalidad? EmpNacionalidad { get; set; }
+        public required string StrValor { get; set; }       
+        public string? StrDescripcion { get; set; }         
 
         public List<EmpEmpleado>? EmpEmpleados { get; set; }
     }

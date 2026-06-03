@@ -1,0 +1,22 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Cavex.Principal.Core.Entities
+{
+    internal class EmpExperiencia:BaseEntity
+    {
+        public required string StrEmpresa { get; set; }         
+        public required string StrPuesto { get; set; }          
+        public required string StrArea { get; set; }            
+        public DateOnly DteFechaIncio { get; set; }             
+        public DateOnly DteFechaFin { get; set; }               
+        public decimal MnySueldo { get; set; }                  
+        public required string StrMotivoSalida { get; set; }    
+        public int IdEmpEmpleado { get; set; }                  
+
+        public EmpEmpleado? EmpEmpleado { get; set; }
+    }
+}
