@@ -1,16 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Cavex.Principal.Core.Entities;
+﻿using Cavex.Principal.Core.Entities;
 using Cavex.Principal.Infraestructure.Config;
-using Cavex.Principal.Infraestructure.Data;
-{
-    
-}
+using Microsoft.EntityFrameworkCore;
+
 namespace Cavex.Principal.Infraestructure.Data
 {
     public class CavexContext : DbContext

@@ -34,10 +34,10 @@ namespace Cavex.Principal.Infraestructure.Data
             return await ApplySpecification(specification).FirstOrDefaultAsync();
         }
 
-        //public async Task<TResult?> GetEbtityWithSpec<TResult>(ISpecification<T, TResult> specification)
-        //{
-        //    return await ApplySpecification(specification).FirstOrDefaultAsync();
-        //}
+        public async Task<TResult?> GetEntityWithSpec<TResult>(ISpecification<T, TResult> specification)
+        {
+            return await ApplySpecification(specification).FirstOrDefaultAsync();
+        }
 
         public async Task<IReadOnlyList<T>> ListAllAsync()
         {
@@ -49,10 +49,10 @@ namespace Cavex.Principal.Infraestructure.Data
             return await ApplySpecification(specification).ToListAsync();
         }
 
-        //public async Task<IReadOnlyList<TResult>> ListAsync<TResult>(ISpecification<T, TResult> specification)
-        //{
-        //    return await ApplySpecification(specification).ToListAsync(); 
-        //}
+        public async Task<IReadOnlyList<TResult>> ListAsync<TResult>(ISpecification<T, TResult> specification)
+        {
+            return await ApplySpecification(specification).ToListAsync(); 
+        }
 
         public void Remove(T entity)
         {
@@ -75,15 +75,12 @@ namespace Cavex.Principal.Infraestructure.Data
             return SpecificationEvaluator<T>.GetQuery(cavexContext.Set<T>().AsQueryable(), specification);
         }
 
-        //private IQueryable<TResult> ApplySpecification<Tresult>(ISpecification<T, TResult> specification)
-        //{
-        //    return SpecificationEvaluator<T>.GetQuery<T, TResult>(cavexContext.Set<T>().AsQueryable(), specification);
-        //}
-
-        public Task<TResult?> GetEntityWithSpec<TResult>(ISpecification<T, TResult> specification)
+        private IQueryable<TResult> ApplySpecification<TResult>(ISpecification<T, TResult> specification)
         {
-            throw new NotImplementedException();
+            return SpecificationEvaluator<T>.GetQuery<T, TResult>(cavexContext.Set<T>().AsQueryable(), specification);
         }
+
+
 
         public Task<int> CountAsync(ISpecification<T> specification)
         {
