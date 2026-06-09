@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cavex.Principal.Core.Entities
 {
-    internal class EmpCatEntidadFederativa:BaseEntity
+    public class EmpCatEntidadFederativa:BaseEntity
     {
         public required string StrValor { get; set; }      
         public string? StrDescripcion { get; set; }        

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cavex.Principal.Core.Entities
 {
-    internal class EmpDocumentosLaborales : BaseEntity
+    public class EmpDocumentosLaborales : BaseEntity
     {
         public required string StrUrlIdentificacionOficial { get; set; }    
         public required string StrUrlComprobanteDomicilio { get; set; }     

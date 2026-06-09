@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cavex.Principal.Core.Entities
 {
-    internal class EmpDireccion:BaseEntity
+    public class EmpDireccion:BaseEntity
     {
         public int IdEmpCatColonia { get; set; }    
         public int? IntNumExterior { get; set; }    

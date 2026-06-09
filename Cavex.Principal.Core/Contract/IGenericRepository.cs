@@ -12,7 +12,7 @@ namespace Cavex.Principal.Core.Contract
     /// 
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public interface IGenericRepository<T> where T : BaseEntity
+    public interface IGenericRepository<T> where T:BaseEntity
     {
         Task<T?> GetByIdAsync(int id);
 
@@ -22,7 +22,7 @@ namespace Cavex.Principal.Core.Contract
 
         Task<IReadOnlyList<T>> ListAsync(ISpecification<T> specification);
 
-        Task<TResult?> GetEntityWithSpec<TResult>(ISpecification<T, TResult> specification);
+        //Task<TResult?> GetEntityWithSpec<TResult>(ISpecification<T, TResult> specification);
 
         Task<IReadOnlyList<TResult>> ListAsync<TResult>(ISpecification<T, TResult> specification);
 
@@ -36,6 +36,6 @@ namespace Cavex.Principal.Core.Contract
 
         bool Exists(int id);
 
-        Task<int> CountAsync(ISpecification<T> specification);
+        //Task<int> CountAsync(ISpecification<T> specification);
     }
 }

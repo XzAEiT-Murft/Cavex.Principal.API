@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cavex.Principal.Core.Entities
 {
-    internal class EmpDatosAcademicos:BaseEntity
+    public class EmpDatosAcademicos:BaseEntity
     {
         public required string StrNivelEstudios { get; set; }  
         public required string StrInstitucion { get; set; }     

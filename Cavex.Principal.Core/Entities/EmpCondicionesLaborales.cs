@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cavex.Principal.Core.Entities
 {
-    internal class EmpCondicionesLaborales:BaseEntity
+    public class EmpCondicionesLaborales:BaseEntity
     {
         public bool BitCercaniaVivienda { get; set; }               
         public bool BitDisponibilidadDeViaje { get; set; }          
