@@ -4,14 +4,14 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Cavex.Principal.Infraestructure.Config
 {
-    public class EmpCatAreaLaboralConfiguration : IEntityTypeConfiguration<EmpCatAreaLaboral>
+    internal class CatServiciosConfiguration : IEntityTypeConfiguration<CatServicios>
     {
-        public void Configure(EntityTypeBuilder<EmpCatAreaLaboral> builder)
+        public void Configure(EntityTypeBuilder<CatServicios> builder)
         {
-            builder.ToTable("EmpCatAreaLaboral");
+            builder.ToTable("CatServicios");
 
-            
             builder.HasKey(x => x.Id);
+            builder.Property(x => x.Id);
 
             builder.Property(x => x.StrValor)
                 .IsRequired()
@@ -20,7 +20,10 @@ namespace Cavex.Principal.Infraestructure.Config
             builder.Property(x => x.StrDescripcion)
                 .HasMaxLength(450);
 
-           
+            builder.HasOne(x => x.CatStatus)
+                .WithMany(x => x.CatServicios)
+                .HasForeignKey(x => x.IdCatStatus)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

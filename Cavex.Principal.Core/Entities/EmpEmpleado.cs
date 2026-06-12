@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cavex.Principal.API;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -18,23 +19,16 @@ namespace Cavex.Principal.Core.Entities
         public int IntEdad { get; set; }
         public required string StrCorreoElectronico { get; set; }
         public int IntNss { get; set; }
+
         public int IdEmpCatGenero { get; set; }
         public int IdEmpCatEstadoCivil { get; set; }
         public int IdEmpCatNacionalidad { get; set; }
         public int IdEmpCatTipoContratacion { get; set; }
-        
-        [ForeignKey("idEmpDireccion")]
         public int IdEmpDireccion { get; set; }
-
-        [ForeignKey("idEmpCondicionesLaborales")]
-        public int IdEmpCondicionesLaborales { get; set; }
-        
-        [ForeignKey("idEmpDatosAcademicos")]
         public int IdEmpDatosAcademicos { get; set; }
-
-        [ForeignKey("IdEmpDocumentosLaborales")]
         public int IdEmpDocumentosLaborales { get; set; }
-
+        public int IdEmpCondicionesLaborales { get; set; }
+        public int IdCatStatus { get; set; }
 
         public EmpCatGenero? EmpCatGenero { get; set; }
         public EmpCatEstadoCivil? EmpCatEstadoCivil { get; set; }
@@ -44,6 +38,7 @@ namespace Cavex.Principal.Core.Entities
         public EmpDatosAcademicos? EmpDatosAcademicos { get; set; }
         public EmpDocumentosLaborales? EmpDocumentosLaborales { get; set; }
         public EmpCondicionesLaborales? EmpCondicionesLaborales { get; set; }
+        public CatStatus? CatStatus { get; set; }
 
         public List<EmpExperiencia>? EmpExperiencias { get; set; }
         public List<EmpHistorialArea>? EmpHistorialAreas { get; set; }

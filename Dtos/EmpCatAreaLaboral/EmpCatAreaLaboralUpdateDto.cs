@@ -26,7 +26,7 @@ namespace Cavex.Principal.API.Dtos.EmpCatAreaLaboral
         /// Descripcion actualizada del area laboral.
         /// </summary>
         /// <example>Area responsable de administracion y desarrollo de talento.</example>
-        [MaxLength(300)]
+        [MaxLength(450)]
         public string? StrDescripcion { get; set; }
     }
 }

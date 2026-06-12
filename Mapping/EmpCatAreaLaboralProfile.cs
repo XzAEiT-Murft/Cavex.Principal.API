@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Cavex.Principal.API.Dtos.EmpCatAreaLaboral;
+using Cavex.Principal.Core.Entities;
 
 namespace Cavex.Principal.API.Mapping
 {
@@ -6,9 +8,9 @@ namespace Cavex.Principal.API.Mapping
     {
         public EmpCatAreaLaboralProfile()
         {
-            CreateMap<Cavex.Principal.Core.Entities.EmpCatAreaLaboral, Dtos.EmpCatAreaLaboral.EmpCatAreaLaboralDto>();
-            CreateMap<Dtos.EmpCatAreaLaboral.EmpCatAreaLaboralCreateDto, Cavex.Principal.Core.Entities.EmpCatAreaLaboral>();
-            CreateMap<Dtos.EmpCatAreaLaboral.EmpCatAreaLaboralUpdateDto, Cavex.Principal.Core.Entities.EmpCatAreaLaboral>();
+            CreateMap<EmpCatAreaLaboral, EmpCatAreaLaboralDto>();
+            CreateMap<EmpCatAreaLaboralCreateDto, EmpCatAreaLaboral>();
+            CreateMap<EmpCatAreaLaboralUpdateDto, EmpCatAreaLaboral>();
         }
     }
 }

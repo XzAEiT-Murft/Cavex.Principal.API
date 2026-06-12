@@ -8,12 +8,11 @@ namespace Cavex.Principal.Core.Entities
 {
     public class EmpDireccion:BaseEntity
     {
-        public int IdEmpCatColonia { get; set; }    
-        public int? IntNumExterior { get; set; }    
-        public int? IntNumInterior { get; set; }    
+        public int IdEmpCatColonia { get; set; }
+        public int? IntNumExterior { get; set; }
+        public int? IntNumInterior { get; set; }
 
         public EmpCatColonia? EmpCatColonia { get; set; }
         public List<EmpEmpleado>? EmpEmpleados { get; set; }
-    
-}
+    }
 }

@@ -19,7 +19,7 @@ namespace Cavex.Principal.API.Dtos.EmpCatAreaLaboral
         /// Descripcion opcional del area laboral.
         /// </summary>
         /// <example>Area responsable de registros contables y financieros.</example>
-        [MaxLength(300)]
+        [MaxLength(450)]
         public string? StrDescripcion { get; set; }
     }
 
