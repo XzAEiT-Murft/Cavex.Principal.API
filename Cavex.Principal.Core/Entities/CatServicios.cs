@@ -1,12 +1,4 @@
-﻿using Cavex.Principal.API;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Cavex.Principal.Core.Entities
+﻿namespace Cavex.Principal.Core.Entities
 {
     public class CatServicios : BaseEntity
     {

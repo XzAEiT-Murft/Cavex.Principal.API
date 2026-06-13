@@ -14,7 +14,7 @@ using System.Net;
 
 namespace Cavex.Principal.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class EmpCatAreaLaboralController : ControllerBase
     {
@@ -183,10 +183,10 @@ namespace Cavex.Principal.API.Controllers
         [HttpPut("{id:int}")]
         [EnableRateLimiting("CatalogWritePolicy")]
         [ProducesResponseType(typeof(ResponseWrapper<EmpCatAreaLaboralDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseWrapper<EmpCatAreaLaboralDto>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ResponseWrapper<EmpCatAreaLaboralDto>), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<ResponseWrapper<EmpCatAreaLaboralDto>>> UpdateById(
-            int id,
-            [FromBody] RequestWrapper<EmpCatAreaLaboralUpdateDto> request)
+            int id, [FromBody] RequestWrapper<EmpCatAreaLaboralUpdateDto> request)
         {
             if (request.Body is null)
             {
@@ -199,7 +199,6 @@ namespace Cavex.Principal.API.Controllers
             }
 
             var specification = new EmpCatAreaLaboralSpecification(id);
-
             var entity = await _repository.GetEntityWithSpec(specification);
 
             if (entity is null)
@@ -228,26 +227,6 @@ namespace Cavex.Principal.API.Controllers
                 Message = "Area laboral actualizada correctamente.",
                 Data = _mapper.Map<EmpCatAreaLaboralDto>(entity)
             });
-        }
-
-
-        [HttpPut]
-        [EnableRateLimiting("CatalogWritePolicy")]
-        [ProducesResponseType(typeof(ResponseWrapper<EmpCatAreaLaboralDto>), StatusCodes.Status200OK)]
-        public async Task<ActionResult<ResponseWrapper<EmpCatAreaLaboralDto>>> Update(
-            [FromBody] RequestWrapper<EmpCatAreaLaboralUpdateDto> request)
-        {
-            if (request.Body is null)
-            {
-                return BadRequest(new ResponseWrapper<EmpCatAreaLaboralDto>
-                {
-                    StatusCode = HttpStatusCode.BadRequest,
-                    Message = "El cuerpo de la solicitud es requerido.",
-                    Data = null
-                });
-            }
-
-            return await UpdateById(request.Body.Id, request);
         }
 
 

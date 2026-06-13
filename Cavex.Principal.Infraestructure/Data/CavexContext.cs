@@ -9,6 +9,7 @@ namespace Cavex.Principal.Infraestructure.Data
         public DbSet<EmpCatPais> EmpCatPaises { get; set; }
         public DbSet<EmpCatAreaLaboral> EmpCatAreasLaborales { get; set; }
         public DbSet<CatServicios> CatServicios { get; set; }
+        public DbSet<CatStatus> CatStatus { get; set; }
         public CavexContext(DbContextOptions options):base(options)
         {
 

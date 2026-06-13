@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-namespace Cavex.Principal.Core.Entities
+﻿namespace Cavex.Principal.Core.Entities
 {
     public class EmpCatPais:BaseEntity
     {

@@ -1,11 +1,10 @@
 ﻿using AutoMapper;
-using Cavex.Principal.API.Dtos.CatServicios;
+using Cavex.Principal.API.Dtos.CatStatus;
 using Cavex.Principal.API.RequestHelpers;
 using Cavex.Principal.Common.Transfer;
 using Cavex.Principal.Core.Contract;
 using Cavex.Principal.Core.Entities;
-using Cavex.Principal.Core.Specifications;
-using Cavex.Principal.Core.Specifications.CatServicios;
+using Cavex.Principal.Core.Specifications.CatStatus;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.Extensions.Caching.Memory;
@@ -16,16 +15,16 @@ namespace Cavex.Principal.API.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
-    public class CatServiciosController : ControllerBase
+    public class CatStatusController : ControllerBase
     {
-        private const string CachePrefix = "CatServicios";
-        private readonly IGenericRepository<CatServicios> _repository;
+        private const string CachePrefix = "CatStatus";
+        private readonly IGenericRepository<CatStatus> _repository;
         private readonly IMapper _mapper;
         private readonly IMemoryCache _cache;
         private static int _listCacheVersion = 1;
 
-        public CatServiciosController(
-            IGenericRepository<CatServicios> repository,
+        public CatStatusController(
+            IGenericRepository<CatStatus> repository,
             IMapper mapper,
             IMemoryCache cache)
         {
@@ -36,33 +35,33 @@ namespace Cavex.Principal.API.Controllers
 
         [HttpGet]
         [EnableRateLimiting("CatalogReadPolicy")]
-        [ProducesResponseType(typeof(ResponseWrapper<PagedResponse<CatServiciosDto>>), StatusCodes.Status200OK)]
-        public async Task<ActionResult<ResponseWrapper<PagedResponse<CatServiciosDto>>>> GetAll(
+        [ProducesResponseType(typeof(ResponseWrapper<PagedResponse<CatStatusDto>>), StatusCodes.Status200OK)]
+        public async Task<ActionResult<ResponseWrapper<PagedResponse<CatStatusDto>>>> GetAll(
             [FromQuery] Pagination pagination)
         {
             var cacheKey = $"{CachePrefix}:List:Version={_listCacheVersion}:PageIndex={pagination.PageIndex}:PageSize={pagination.PageSize}:Search={pagination.Search}";
 
-            if (_cache.TryGetValue(cacheKey, out ResponseWrapper<PagedResponse<CatServiciosDto>>? cachedResponse))
+            if (_cache.TryGetValue(cacheKey, out ResponseWrapper<PagedResponse<CatStatusDto>>? cachedResponse))
             {
                 return Ok(cachedResponse);
             }
 
-            var specification = new CatServiciosSpecification(
+            var specification = new CatStatusSpecification(
                 pagination.Search,
                 pagination.PageIndex,
                 pagination.PageSize);
 
-            var countSpecification = new CatServiciosCountSpecification(pagination.Search);
+            var countSpecification = new CatStatusCountSpecification(pagination.Search);
 
             var entities = await _repository.ListAsync(specification);
             var totalCount = await _repository.CountAsync(countSpecification);
-            var dto = _mapper.Map<IReadOnlyList<CatServiciosDto>>(entities);
+            var dto = _mapper.Map<IReadOnlyList<CatStatusDto>>(entities);
 
-            var response = new ResponseWrapper<PagedResponse<CatServiciosDto>>
+            var response = new ResponseWrapper<PagedResponse<CatStatusDto>>
             {
                 StatusCode = HttpStatusCode.OK,
                 Message = "Consulta realizada correctamente.",
-                Data = new PagedResponse<CatServiciosDto>
+                Data = new PagedResponse<CatStatusDto>
                 {
                     PageIndex = pagination.PageIndex,
                     PageSize = pagination.PageSize,
@@ -86,39 +85,38 @@ namespace Cavex.Principal.API.Controllers
         [HttpGet("{id:int}")]
         [EnableRateLimiting("CatalogReadPolicy")]
         [SwaggerOperation(
-            Summary = "Consultar servicio por Id",
-            Description = "Obtiene un registro especifico del catalogo de servicios mediante su identificador."
+            Summary = "Consultar status por Id",
+            Description = "Obtiene un registro especifico del catalogo de status mediante su identificador."
         )]
-        [ProducesResponseType(typeof(ResponseWrapper<CatServiciosDto>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ResponseWrapper<CatServiciosDto>), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(ResponseWrapper<object>), StatusCodes.Status429TooManyRequests)]
-        public async Task<ActionResult<ResponseWrapper<CatServiciosDto>>> GetById(int id)
+        [ProducesResponseType(typeof(ResponseWrapper<CatStatusDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseWrapper<CatStatusDto>), StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<ResponseWrapper<CatStatusDto>>> GetById(int id)
         {
             var cacheKey = $"{CachePrefix}:Id:{id}";
 
-            if (_cache.TryGetValue(cacheKey, out ResponseWrapper<CatServiciosDto>? cachedResponse))
+            if (_cache.TryGetValue(cacheKey, out ResponseWrapper<CatStatusDto>? cachedResponse))
             {
                 return Ok(cachedResponse);
             }
 
-            var specification = new CatServiciosSpecification(id);
+            var specification = new CatStatusSpecification(id);
             var entity = await _repository.GetEntityWithSpec(specification);
 
             if (entity is null)
             {
-                return NotFound(new ResponseWrapper<CatServiciosDto>
+                return NotFound(new ResponseWrapper<CatStatusDto>
                 {
                     StatusCode = HttpStatusCode.NotFound,
-                    Message = "No se encontro el servicio solicitado.",
+                    Message = "No se encontro el status solicitado.",
                     Data = null
                 });
             }
 
-            var response = new ResponseWrapper<CatServiciosDto>
+            var response = new ResponseWrapper<CatStatusDto>
             {
                 StatusCode = HttpStatusCode.OK,
                 Message = "Consulta realizada correctamente.",
-                Data = _mapper.Map<CatServiciosDto>(entity)
+                Data = _mapper.Map<CatStatusDto>(entity)
             };
 
             _cache.Set(
@@ -135,14 +133,14 @@ namespace Cavex.Principal.API.Controllers
 
         [HttpPost]
         [EnableRateLimiting("CatalogWritePolicy")]
-        [ProducesResponseType(typeof(ResponseWrapper<CatServiciosDto>), StatusCodes.Status201Created)]
-        [ProducesResponseType(typeof(ResponseWrapper<CatServiciosDto>), StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ResponseWrapper<CatServiciosDto>>> Create(
-            [FromBody] RequestWrapper<CatServiciosCreateDto> request)
+        [ProducesResponseType(typeof(ResponseWrapper<CatStatusDto>), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ResponseWrapper<CatStatusDto>), StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<ResponseWrapper<CatStatusDto>>> Create(
+            [FromBody] RequestWrapper<CatStatusCreateDto> request)
         {
             if (request.Body is null)
             {
-                return BadRequest(new ResponseWrapper<CatServiciosDto>
+                return BadRequest(new ResponseWrapper<CatStatusDto>
                 {
                     StatusCode = HttpStatusCode.BadRequest,
                     Message = "El cuerpo de la solicitud es requerido.",
@@ -150,7 +148,7 @@ namespace Cavex.Principal.API.Controllers
                 });
             }
 
-            var entity = _mapper.Map<CatServicios>(request.Body);
+            var entity = _mapper.Map<CatStatus>(request.Body);
 
             _repository.Add(entity);
 
@@ -158,12 +156,12 @@ namespace Cavex.Principal.API.Controllers
 
             InvalidateListCache();
 
-            var dto = _mapper.Map<CatServiciosDto>(entity);
+            var dto = _mapper.Map<CatStatusDto>(entity);
 
-            var response = new ResponseWrapper<CatServiciosDto>
+            var response = new ResponseWrapper<CatStatusDto>
             {
                 StatusCode = HttpStatusCode.Created,
-                Message = "Servicio creado correctamente.",
+                Message = "Status creado correctamente.",
                 Data = dto
             };
 
@@ -172,16 +170,16 @@ namespace Cavex.Principal.API.Controllers
 
         [HttpPut("{id:int}")]
         [EnableRateLimiting("CatalogWritePolicy")]
-        [ProducesResponseType(typeof(ResponseWrapper<CatServiciosDto>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ResponseWrapper<CatServiciosDto>), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(ResponseWrapper<CatServiciosDto>), StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<ResponseWrapper<CatServiciosDto>>> UpdateById(
+        [ProducesResponseType(typeof(ResponseWrapper<CatStatusDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseWrapper<CatStatusDto>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ResponseWrapper<CatStatusDto>), StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<ResponseWrapper<CatStatusDto>>> UpdateById(
             int id,
-            [FromBody] RequestWrapper<CatServiciosUpdateDto> request)
+            [FromBody] RequestWrapper<CatStatusUpdateDto> request)
         {
             if (request.Body is null)
             {
-                return BadRequest(new ResponseWrapper<CatServiciosDto>
+                return BadRequest(new ResponseWrapper<CatStatusDto>
                 {
                     StatusCode = HttpStatusCode.BadRequest,
                     Message = "El cuerpo de la solicitud es requerido.",
@@ -189,22 +187,21 @@ namespace Cavex.Principal.API.Controllers
                 });
             }
 
-            var specification = new CatServiciosSpecification(id);
+            var specification = new CatStatusSpecification(id);
             var entity = await _repository.GetEntityWithSpec(specification);
 
             if (entity is null)
             {
-                return NotFound(new ResponseWrapper<CatServiciosDto>
+                return NotFound(new ResponseWrapper<CatStatusDto>
                 {
                     StatusCode = HttpStatusCode.NotFound,
-                    Message = "No se encontro el servicio solicitado.",
+                    Message = "No se encontro el status solicitado.",
                     Data = null
                 });
             }
 
             entity.StrValor = request.Body.StrValor;
             entity.StrDescripcion = request.Body.StrDescripcion;
-            entity.IdCatStatus = request.Body.IdCatStatus;
 
             _repository.Update(entity);
 
@@ -213,11 +210,11 @@ namespace Cavex.Principal.API.Controllers
             InvalidateEntityCache(id);
             InvalidateListCache();
 
-            return Ok(new ResponseWrapper<CatServiciosDto>
+            return Ok(new ResponseWrapper<CatStatusDto>
             {
                 StatusCode = HttpStatusCode.OK,
-                Message = "Servicio actualizado correctamente.",
-                Data = _mapper.Map<CatServiciosDto>(entity)
+                Message = "Status actualizado correctamente.",
+                Data = _mapper.Map<CatStatusDto>(entity)
             });
         }
 
@@ -227,7 +224,7 @@ namespace Cavex.Principal.API.Controllers
         [ProducesResponseType(typeof(ResponseWrapper<bool>), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<ResponseWrapper<bool>>> Delete(int id)
         {
-            var specification = new CatServiciosSpecification(id);
+            var specification = new CatStatusSpecification(id);
             var entity = await _repository.GetEntityWithSpec(specification);
 
             if (entity is null)
@@ -235,7 +232,7 @@ namespace Cavex.Principal.API.Controllers
                 return NotFound(new ResponseWrapper<bool>
                 {
                     StatusCode = HttpStatusCode.NotFound,
-                    Message = "No se encontro el servicio solicitado.",
+                    Message = "No se encontro el status solicitado.",
                     Data = false
                 });
             }
@@ -250,7 +247,7 @@ namespace Cavex.Principal.API.Controllers
             return Ok(new ResponseWrapper<bool>
             {
                 StatusCode = HttpStatusCode.OK,
-                Message = "Servicio eliminado correctamente.",
+                Message = "Status eliminado correctamente.",
                 Data = true
             });
         }

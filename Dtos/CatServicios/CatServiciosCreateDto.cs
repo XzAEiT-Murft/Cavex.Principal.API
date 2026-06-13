@@ -4,8 +4,6 @@ namespace Cavex.Principal.API.Dtos.CatServicios
 {
     public class CatServiciosCreateDto
     {
-        [Required]
-        public int Id { get; set; }
 
         [Required]
         [MaxLength(150)]
