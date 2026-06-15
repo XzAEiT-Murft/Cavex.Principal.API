@@ -28,6 +28,11 @@ namespace Cavex.Principal.Infraestructure.Config
                 .HasForeignKey(x => x.IdEmpDocumentosLaborales)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            builder.HasOne(x => x.EmpCatTipoContratacion)
+                .WithMany(x => x.EmpEmpleados)
+                .HasForeignKey(x => x.IdEmpCatTipoContratacion)
+                .OnDelete(DeleteBehavior.Restrict);
+
         }
     }
 }
