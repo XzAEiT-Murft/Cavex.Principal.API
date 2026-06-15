@@ -8,13 +8,6 @@ namespace Cavex.Principal.API.Dtos.EmpCatAreaLaboral
     public class EmpCatAreaLaboralUpdateDto
     {
         /// <summary>
-        /// Identificador unico del area laboral.
-        /// </summary>
-        /// <example>1</example>
-        [Required]
-        public int Id { get; set; }
-
-        /// <summary>
         /// Nombre o valor principal actualizado del area laboral.
         /// </summary>
         /// <example>Capital Humano</example>

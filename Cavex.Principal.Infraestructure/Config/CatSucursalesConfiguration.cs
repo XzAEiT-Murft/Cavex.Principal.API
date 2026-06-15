@@ -1,14 +1,19 @@
 ﻿using Cavex.Principal.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Cavex.Principal.Infraestructure.Config
 {
-    public class CatServiciosConfiguration : IEntityTypeConfiguration<CatServicios>
+    public class CatSucursalesConfiguration : IEntityTypeConfiguration<CatSucursales>
     {
-        public void Configure(EntityTypeBuilder<CatServicios> builder)
+        public void Configure(EntityTypeBuilder<CatSucursales> builder)
         {
-            builder.ToTable("CatServicios");
+            builder.ToTable("CatSucursales");
 
             builder.HasKey(x => x.Id);
 
@@ -23,7 +28,7 @@ namespace Cavex.Principal.Infraestructure.Config
                 .HasMaxLength(450);
 
             builder.HasOne(x => x.CatStatus)
-                .WithMany(x => x.CatServicios)
+                .WithMany(x => x.CatSucursales)
                 .HasForeignKey(x => x.IdCatStatus)
                 .OnDelete(DeleteBehavior.Restrict);
         }

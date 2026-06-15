@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Cavex.Principal.Core.Entities
+﻿namespace Cavex.Principal.Core.Entities
 {
     public class EmpCatAreaLaboral:BaseEntity
     {

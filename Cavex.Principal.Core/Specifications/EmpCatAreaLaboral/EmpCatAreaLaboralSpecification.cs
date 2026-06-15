@@ -1,6 +1,4 @@
-﻿using Cavex.Principal.Core.Entities;
-
-namespace Cavex.Principal.Core.Specifications.EmpCatAreaLaboral
+﻿namespace Cavex.Principal.Core.Specifications.EmpCatAreaLaboral
 {
     public class EmpCatAreaLaboralSpecification : BaseSpecification<Entities.EmpCatAreaLaboral>
     {

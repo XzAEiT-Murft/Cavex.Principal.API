@@ -1,7 +1,4 @@
-﻿using Cavex.Principal.Core.Entities;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Cavex.Principal.API
+﻿namespace Cavex.Principal.Core.Entities
 {
     public class CatStatus : BaseEntity
     {

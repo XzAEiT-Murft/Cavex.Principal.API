@@ -1,6 +1,4 @@
-﻿using Cavex.Principal.Core.Entities;
-
-namespace Cavex.Principal.Core.Specifications.CatServicios
+﻿namespace Cavex.Principal.Core.Specifications.CatServicios
 {
     public class CatServiciosCountSpecification : BaseSpecification<Entities.CatServicios>
     {
