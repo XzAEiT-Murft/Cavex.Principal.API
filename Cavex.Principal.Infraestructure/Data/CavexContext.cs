@@ -14,6 +14,8 @@ namespace Cavex.Principal.Infraestructure.Data
         public DbSet<EmpHistorialArea> EmpHistorialAreas { get; set; }
         public DbSet<EmpExperiencia> EmpExperiencias { get; set; }
         public DbSet<EmpCondicionesLaborales> EmpCondicionesLaborales { get; set; }
+        public DbSet<EmpTelefono> EmpTelefonos { get; set; }
+        public DbSet<EmpDatosAcademicos> EmpDatosAcademicos { get; set; }
         public CavexContext(DbContextOptions options):base(options)
         {
 

@@ -1,0 +1,13 @@
+﻿namespace Cavex.Principal.API.Dtos.EmpDatosAcademicos
+{
+    public class EmpDatosAcademicosDto
+    {
+        public int Id { get; set; }
+        public string StrNivelEstudios { get; set; } = string.Empty;
+        public string StrInstitucion { get; set; } = string.Empty;
+        public string? StrCarrera { get; set; }
+        public string StrEstatus { get; set; } = string.Empty;
+        public DateOnly DteFechaInicio { get; set; }
+        public DateOnly DteFechaFin { get; set; }
+    }
+}
