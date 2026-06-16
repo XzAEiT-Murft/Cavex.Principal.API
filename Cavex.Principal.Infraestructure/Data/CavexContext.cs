@@ -14,6 +14,7 @@ namespace Cavex.Principal.Infraestructure.Data
         public DbSet<EmpCatGenero> EmpCatGeneros { get; set; }
         public DbSet<EmpCatNacionalidad> EmpCatNacionalidades { get; set; }
         public DbSet<EmpCatMunicipio> EmpCatMunicipios { get; set; }
+        public DbSet<EmpCatEntidadFederativa> EmpCatEntidadesFederativas { get; set; }
         public CavexContext(DbContextOptions options):base(options)
 
         {
