@@ -6,10 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Specifications\EmpCondicionesLaborales\" />
-    <Folder Include="Specifications\EmpExperiencia\" />
-    <Folder Include="Specifications\EmpHistorialArea\" />
-  </ItemGroup>
-
 </Project>
