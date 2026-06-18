@@ -18,6 +18,16 @@ namespace Cavex.Principal.Infraestructure.Data
         public DbSet<EmpDatosAcademicos> EmpDatosAcademicos { get; set; }
         public DbSet<EmpCatTipoContratacion> EmpCatTiposContratacion { get; set; }
         public DbSet<EmpDireccion> EmpDirecciones { get; set; }
+        public DbSet<EmpCatColonia> EmpCatColonias { get; set; }
+        public DbSet<EmpReferenciasPersonales> EmpReferenciasPersonales { get; set; }
+        public DbSet<EmpEmpleado> EmpEmpleados { get; set; }
+        public DbSet<EmpDocumentosLaborales> EmpDocumentosLaborales { get; set; }
+        public DbSet<EmpCatGenero> EmpCatGeneros { get; set; }
+        public DbSet<EmpCatNacionalidad> EmpCatNacionalidades { get; set; }
+        public DbSet<EmpCatMunicipio> EmpCatMunicipios { get; set; }
+        public DbSet<EmpCatEstadoCivil> EmpCatEstadosCiviles { get; set; }
+        public DbSet<EmpCatEntidadFederativa> EmpCatEntidadesFederativas { get; set; }
+
         public CavexContext(DbContextOptions options):base(options)
         {
 

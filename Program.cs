@@ -92,8 +92,8 @@ try {
     app.UseGlobalExceptionMiddleware();
 
     // Configure the HTTP request pipeline.
-    if (app.Environment.IsDevelopment())
-    {
+    //if (app.Environment.IsDevelopment())
+    //{
         //app.MapOpenApi();
         app.UseSwagger();
 
@@ -101,7 +101,7 @@ try {
         {
             options.SwaggerEndpoint("/swagger/v1/swagger.json", "Cavex Principal API v1");
         });
-    }
+    //}
 
     app.UseHttpsRedirection();
     app.UseRateLimiter();
