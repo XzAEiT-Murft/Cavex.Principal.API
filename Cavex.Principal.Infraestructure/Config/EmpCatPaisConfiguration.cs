@@ -8,8 +8,14 @@ namespace Cavex.Principal.Infraestructure.Config
     {
         public void Configure(EntityTypeBuilder<EmpCatPais> builder)
         {
-            builder.Property(x => x.StrValor).IsRequired();
-            builder.Property(x => x.StrDescripcion);
+            builder.ToTable("EmpCatPais");
+
+            builder.Property(x => x.StrValor)
+                .IsRequired()
+                .HasMaxLength(150);
+
+            builder.Property(x => x.StrDescripcion)
+                .HasMaxLength(450);
         }
     }
 }

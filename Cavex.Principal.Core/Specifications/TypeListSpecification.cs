@@ -3,7 +3,7 @@ using Cavex.Principal.Core.Entities;
 
 namespace Cavex.Principal.Core.Specifications
 {
-    public class TypeListSpecification : BaseSpecification<EmpCatPais, string>
+    public class TypeListSpecification : BaseSpecification<Entities.EmpCatPais, string>
     {
         public TypeListSpecification()
         {
