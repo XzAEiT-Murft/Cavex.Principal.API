@@ -8,8 +8,15 @@ using System.Threading.Tasks;
 
 namespace Cavex.Principal.Infraestructure.Data
 {
+    /// <summary>
+    /// Convierte una specification en una consulta IQueryable que EF Core puede traducir a SQL.
+    /// </summary>
+    /// <typeparam name="T">Entidad base consultada.</typeparam>
     public class SpecificationEvaluator<T> where T : BaseEntity
     {
+        /// <summary>
+        /// Aplica filtro, ordenamiento, distinct y paginacion sobre una consulta de entidades.
+        /// </summary>
         public static IQueryable<T> GetQuery(IQueryable<T> query, ISpecification<T> specification)
         {
             if (specification.Criteria != null)
@@ -30,13 +37,16 @@ namespace Cavex.Principal.Infraestructure.Data
             }
             if (specification.IsPagingEnabled)
             {
-                //si necesitamos hacer la paginacion utilizamos el paso de los parametros para realizar la paginacion
+                // La paginacion se aplica al final para mantener estable el orden de la consulta.
                 query = query.Skip(specification.Skip).Take(specification.Take);
             }
 
             return query;
         }
 
+        /// <summary>
+        /// Aplica una specification con proyeccion para consultas que devuelven un tipo distinto a la entidad.
+        /// </summary>
         public static IQueryable<TResult> GetQuery<TSpec, TResult>(IQueryable<T> query, ISpecification<T, TResult> specification)
         {
             if (specification.Criteria != null)
@@ -64,7 +74,7 @@ namespace Cavex.Principal.Infraestructure.Data
 
             if (specification.IsPagingEnabled)
             {
-                //si necesitamos paginacion utilizamos rl paso de los parametros para la realizacion de la paginacion 
+                // La paginacion se aplica despues de la proyeccion para conservar el mismo contrato.
                 selectQuery = selectQuery?.Skip(specification.Skip).Take(specification.Take);
             }
 

@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Cavex.Principal.API.Dtos.EmpCatEstadoCivil;
 using Cavex.Principal.API.RequestHelpers;
 using Cavex.Principal.Common.Transfer;
@@ -12,6 +12,9 @@ using System.Net;
 
 namespace Cavex.Principal.API.Controllers
 {
+    /// <summary>
+    /// Expone endpoints CRUD para administrar registros de EmpCatEstadoCivil.
+    /// </summary>
     [Route("api/v1/[controller]")]
     [ApiController]
     public class EmpCatEstadoCivilController : ControllerBase
@@ -32,6 +35,11 @@ namespace Cavex.Principal.API.Controllers
             _cache = cache;
         }
 
+        /// <summary>
+        /// Obtiene una lista paginada de registros.
+        /// </summary>
+        /// <param name="pagination">Parametros de paginacion y busqueda aplicados a la consulta.</param>
+        /// <returns>Respuesta paginada con los registros encontrados.</returns>
         [HttpGet]
         [EnableRateLimiting("CatalogReadPolicy")]
         public async Task<ActionResult<ResponseWrapper<PagedResponse<EmpCatEstadoCivilDto>>>> GetAll(
@@ -79,6 +87,11 @@ namespace Cavex.Principal.API.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Obtiene un registro por su identificador.
+        /// </summary>
+        /// <param name="id">Identificador unico del registro.</param>
+        /// <returns>Registro encontrado o una respuesta 404 cuando no existe.</returns>
         [HttpGet("{id:int}")]
         [EnableRateLimiting("CatalogReadPolicy")]
         public async Task<ActionResult<ResponseWrapper<EmpCatEstadoCivilDto>>> GetById(int id)
@@ -122,6 +135,11 @@ namespace Cavex.Principal.API.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Crea un nuevo registro.
+        /// </summary>
+        /// <param name="request">Cuerpo de la solicitud con los datos validados por el contrato de entrada.</param>
+        /// <returns>Registro creado con su informacion persistida.</returns>
         [HttpPost]
         [EnableRateLimiting("CatalogWritePolicy")]
         public async Task<ActionResult<ResponseWrapper<EmpCatEstadoCivilDto>>> Create(
@@ -152,6 +170,12 @@ namespace Cavex.Principal.API.Controllers
             });
         }
 
+        /// <summary>
+        /// Actualiza un registro existente por su identificador.
+        /// </summary>
+        /// <param name="id">Identificador unico del registro.</param>
+        /// <param name="request">Cuerpo de la solicitud con los datos validados por el contrato de entrada.</param>
+        /// <returns>Registro actualizado o una respuesta 404 cuando no existe.</returns>
         [HttpPut("{id:int}")]
         [EnableRateLimiting("CatalogWritePolicy")]
         public async Task<ActionResult<ResponseWrapper<EmpCatEstadoCivilDto>>> UpdateById(
@@ -198,6 +222,11 @@ namespace Cavex.Principal.API.Controllers
             });
         }
 
+        /// <summary>
+        /// Elimina un registro existente por su identificador.
+        /// </summary>
+        /// <param name="id">Identificador unico del registro.</param>
+        /// <returns>Resultado de la eliminacion solicitada.</returns>
         [HttpDelete("{id:int}")]
         [EnableRateLimiting("CatalogWritePolicy")]
         public async Task<ActionResult<ResponseWrapper<bool>>> Delete(int id)
