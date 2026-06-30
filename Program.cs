@@ -19,12 +19,13 @@ try {
 
     var builder = WebApplication.CreateBuilder(args);
 
-    // Add services to the container.
-
+    // Servicios base de MVC/API.
     builder.Services.AddControllers();
 
     builder.Services.AddMemoryCache();
-    /*agregamos los elementos de cache y de ratelimit*/
+
+    // Politicas de rate limiting separadas para consultas y escrituras.
+    // Esto permite proteger operaciones de escritura sin castigar tanto las lecturas paginadas.
     builder.Services.AddRateLimiter(options =>
     {
         options.AddPolicy("CatalogReadPolicy", httpContext =>
@@ -51,17 +52,18 @@ try {
     });
 
 
-    // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-    //builder.Services.AddOpenApi();
-
+    // CavexContext toma la cadena activa segun el ambiente actual
+    // (appsettings.json, appsettings.Development.json o variables de entorno).
     builder.Services.AddDbContext<CavexContext>(options =>
     {
         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
     });
 
     builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-    //builder.Services.AddAutoMapper(typeof(Program));
+
+    // Registra todos los perfiles de AutoMapper disponibles en los ensamblados cargados.
     builder.Services.AddAutoMapper( cf => { }, AppDomain.CurrentDomain.GetAssemblies());
+
     builder.Services.AddSwaggerGen(options =>
     {
         options.EnableAnnotations();
@@ -91,17 +93,13 @@ try {
 
     app.UseGlobalExceptionMiddleware();
 
-    // Configure the HTTP request pipeline.
-    //if (app.Environment.IsDevelopment())
-    //{
-        //app.MapOpenApi();
-        app.UseSwagger();
+    // Swagger queda habilitado para facilitar pruebas manuales de los endpoints.
+    app.UseSwagger();
 
-        app.UseSwaggerUI(options =>
-        {
-            options.SwaggerEndpoint("/swagger/v1/swagger.json", "Cavex Principal API v1");
-        });
-    //}
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "Cavex Principal API v1");
+    });
 
     app.UseHttpsRedirection();
     app.UseRateLimiter();

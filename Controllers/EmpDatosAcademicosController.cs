@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Cavex.Principal.API.Dtos.EmpDatosAcademicos;
 using Cavex.Principal.API.RequestHelpers;
 using Cavex.Principal.Common.Transfer;
@@ -13,6 +13,9 @@ using System.Net;
 
 namespace Cavex.Principal.API.Controllers
 {
+    /// <summary>
+    /// Expone endpoints CRUD para administrar registros de EmpDatosAcademicos.
+    /// </summary>
     [Route("api/v1/[controller]")]
     [ApiController]
     public class EmpDatosAcademicosController : ControllerBase
@@ -33,6 +36,11 @@ namespace Cavex.Principal.API.Controllers
             _cache = cache;
         }
 
+        /// <summary>
+        /// Obtiene una lista paginada de registros.
+        /// </summary>
+        /// <param name="pagination">Parametros de paginacion y busqueda aplicados a la consulta.</param>
+        /// <returns>Respuesta paginada con los registros encontrados.</returns>
         [HttpGet]
         [EnableRateLimiting("CatalogReadPolicy")]
         [ProducesResponseType(typeof(ResponseWrapper<PagedResponse<EmpDatosAcademicosDto>>), StatusCodes.Status200OK)]
@@ -85,6 +93,7 @@ namespace Cavex.Principal.API.Controllers
             Summary = "Consultar datos academicos por Id",
             Description = "Obtiene un registro de datos academicos por su identificador."
         )]
+
         [ProducesResponseType(typeof(ResponseWrapper<EmpDatosAcademicosDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseWrapper<EmpDatosAcademicosDto>), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<ResponseWrapper<EmpDatosAcademicosDto>>> GetById(int id)
@@ -126,6 +135,11 @@ namespace Cavex.Principal.API.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Crea un nuevo registro.
+        /// </summary>
+        /// <param name="request">Cuerpo de la solicitud con los datos validados por el contrato de entrada.</param>
+        /// <returns>Registro creado con su informacion persistida.</returns>
         [HttpPost]
         [EnableRateLimiting("CatalogWritePolicy")]
         [ProducesResponseType(typeof(ResponseWrapper<EmpDatosAcademicosDto>), StatusCodes.Status201Created)]
@@ -160,6 +174,12 @@ namespace Cavex.Principal.API.Controllers
             return StatusCode(StatusCodes.Status201Created, response);
         }
 
+        /// <summary>
+        /// Actualiza un registro existente por su identificador.
+        /// </summary>
+        /// <param name="id">Identificador unico del registro.</param>
+        /// <param name="request">Cuerpo de la solicitud con los datos validados por el contrato de entrada.</param>
+        /// <returns>Registro actualizado o una respuesta 404 cuando no existe.</returns>
         [HttpPut("{id:int}")]
         [EnableRateLimiting("CatalogWritePolicy")]
         [ProducesResponseType(typeof(ResponseWrapper<EmpDatosAcademicosDto>), StatusCodes.Status200OK)]
@@ -213,6 +233,11 @@ namespace Cavex.Principal.API.Controllers
             });
         }
 
+        /// <summary>
+        /// Elimina un registro existente por su identificador.
+        /// </summary>
+        /// <param name="id">Identificador unico del registro.</param>
+        /// <returns>Resultado de la eliminacion solicitada.</returns>
         [HttpDelete("{id:int}")]
         [EnableRateLimiting("CatalogWritePolicy")]
         [ProducesResponseType(typeof(ResponseWrapper<bool>), StatusCodes.Status200OK)]

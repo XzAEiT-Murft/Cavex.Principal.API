@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Cavex.Principal.API.Dtos.EmpCatAreaLaboral;
 using Cavex.Principal.API.RequestHelpers;
 using Cavex.Principal.Common.Transfer;
@@ -14,6 +14,9 @@ using System.Net;
 
 namespace Cavex.Principal.API.Controllers
 {
+    /// <summary>
+    /// Expone endpoints CRUD para administrar registros de EmpCatAreaLaboral.
+    /// </summary>
     [Route("api/v1/[controller]")]
     [ApiController]
     public class EmpCatAreaLaboralController : ControllerBase
@@ -34,6 +37,11 @@ namespace Cavex.Principal.API.Controllers
             _cache = cache;
         }
 
+        /// <summary>
+        /// Obtiene una lista paginada de registros.
+        /// </summary>
+        /// <param name="pagination">Parametros de paginacion y busqueda aplicados a la consulta.</param>
+        /// <returns>Respuesta paginada con los registros encontrados.</returns>
         [HttpGet]
         [EnableRateLimiting("CatalogReadPolicy")]
         [ProducesResponseType(typeof(Cavex.Principal.Common.Transfer.ResponseWrapper<PagedResponse<EmpCatAreaLaboralDto>>), StatusCodes.Status200OK)]
@@ -98,6 +106,7 @@ namespace Cavex.Principal.API.Controllers
             Summary = "Consultar area laboral por Id",
             Description = "Obtiene un registro especifico del catalogo de areas laborales mediante su identificador."
         )]
+
         [ProducesResponseType(typeof(ResponseWrapper<EmpCatAreaLaboralDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseWrapper<EmpCatAreaLaboralDto>), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ResponseWrapper<object>), StatusCodes.Status429TooManyRequests)]
@@ -143,6 +152,12 @@ namespace Cavex.Principal.API.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Crea un nuevo registro.
+        /// </summary>
+        /// <param name="request">Cuerpo de la solicitud con los datos validados por el contrato de entrada.</param>
+        /// <returns>Registro creado con su informacion persistida.</returns>
+
 
         [HttpPost]
         [EnableRateLimiting("CatalogWritePolicy")]
@@ -178,6 +193,13 @@ namespace Cavex.Principal.API.Controllers
                 Data = dto
             });
         }
+
+        /// <summary>
+        /// Actualiza un registro existente por su identificador.
+        /// </summary>
+        /// <param name="id">Identificador unico del registro.</param>
+        /// <param name="request">Cuerpo de la solicitud con los datos validados por el contrato de entrada.</param>
+        /// <returns>Registro actualizado o una respuesta 404 cuando no existe.</returns>
 
 
         [HttpPut("{id:int}")]
@@ -228,6 +250,12 @@ namespace Cavex.Principal.API.Controllers
                 Data = _mapper.Map<EmpCatAreaLaboralDto>(entity)
             });
         }
+
+        /// <summary>
+        /// Elimina un registro existente por su identificador.
+        /// </summary>
+        /// <param name="id">Identificador unico del registro.</param>
+        /// <returns>Resultado de la eliminacion solicitada.</returns>
 
 
         [HttpDelete("{id:int}")]

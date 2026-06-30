@@ -5,6 +5,9 @@ using System.Text.Json;
 
 namespace Cavex.Principal.API.Middleware
 {
+    /// <summary>
+    /// Middleware centralizado para convertir excepciones no controladas en respuestas JSON consistentes.
+    /// </summary>
     public class ExceptionMiddleware
     {
         private readonly RequestDelegate _next;
@@ -21,6 +24,9 @@ namespace Cavex.Principal.API.Middleware
             _environment = environment;
         }
 
+        /// <summary>
+        /// Ejecuta el siguiente componente del pipeline y captura cualquier excepcion no controlada.
+        /// </summary>
         public async Task InvokeAsync(HttpContext context)
         {
             try
@@ -38,6 +44,7 @@ namespace Cavex.Principal.API.Middleware
             var traceId = context.TraceIdentifier;
             var path = context.Request.Path.Value;
 
+            // El scope agrega datos de correlacion al log sin repetirlos manualmente en cada propiedad.
             using (_logger.BeginScope(new Dictionary<string, object?>
             {
                 ["TraceId"] = traceId,
@@ -50,6 +57,7 @@ namespace Cavex.Principal.API.Middleware
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = StatusCodes.Status500InternalServerError;
 
+            // En desarrollo se expone el mensaje real para depurar; en otros ambientes se devuelve uno generico.
             var message = _environment.IsDevelopment()
                 ? exception.Message
                 : "Ocurrio un error interno en el servidor.";

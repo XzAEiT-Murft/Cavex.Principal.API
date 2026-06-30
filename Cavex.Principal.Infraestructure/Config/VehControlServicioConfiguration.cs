@@ -1,0 +1,63 @@
+using Cavex.Principal.Core.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+namespace Cavex.Principal.Infraestructure.Config
+{
+    public class VehControlServicioConfiguration : IEntityTypeConfiguration<VehControlServicio>
+    {
+        public void Configure(EntityTypeBuilder<VehControlServicio> builder)
+        {
+            builder.ToTable("VehControlServicio");
+
+            builder.HasKey(x => x.Id);
+
+            builder.Property(x => x.Id)
+                .ValueGeneratedOnAdd();
+
+            builder.Property(x => x.DecKilometrajeActual)
+                .HasColumnType("decimal(18,0)");
+
+            builder.Property(x => x.StrDescripcion)
+                .HasMaxLength(500);
+
+            builder.Property(x => x.MnyCostoManoObra)
+                .HasColumnType("money");
+
+            builder.Property(x => x.MnyCostoRefacciones)
+                .HasColumnType("money");
+
+            builder.Property(x => x.MnyCostoTotal)
+                .HasColumnType("money")
+                .ValueGeneratedOnAddOrUpdate();
+
+            builder.Property(x => x.StrUrlComprobantePago)
+                .HasMaxLength(2048);
+
+            builder.HasOne(x => x.VehCatResponsableServicio)
+                .WithMany(x => x.VehControlesServicio)
+                .HasForeignKey(x => x.IdVehCatResponsableServicio)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(x => x.VehCatTaller)
+                .WithMany(x => x.VehControlesServicio)
+                .HasForeignKey(x => x.IdVehCatTaller)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(x => x.VehCatTipoServicio)
+                .WithMany(x => x.VehControlesServicio)
+                .HasForeignKey(x => x.IdVehCatTipoServicio)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(x => x.VehDatosGenerales)
+                .WithMany(x => x.VehControlesServicio)
+                .HasForeignKey(x => x.IdVehDatosGenerales)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(x => x.VehFormaPago)
+                .WithMany(x => x.VehControlesServicio)
+                .HasForeignKey(x => x.IdVehFormaPago)
+                .OnDelete(DeleteBehavior.Restrict);
+        }
+    }
+}
