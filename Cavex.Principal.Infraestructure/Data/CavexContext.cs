@@ -51,6 +51,7 @@ namespace Cavex.Principal.Infraestructure.Data
         public DbSet<VehCatTipoPermiso> VehCatTipoPermisos { get; set; }
         public DbSet<VehCatTipoServicio> VehCatTipoServicios { get; set; }
         public DbSet<VehCatTipoVehiculo> VehCatTipoVehiculos { get; set; }
+        public DbSet<VehCatTransmision> VehCatTransmisiones { get; set; }
         public DbSet<VehContratoArrendamiento> VehContratoArrendamientos { get; set; }
         public DbSet<VehControlGasolina> VehControlGasolinas { get; set; }
         public DbSet<VehControlLlanta> VehControlLlantas { get; set; }

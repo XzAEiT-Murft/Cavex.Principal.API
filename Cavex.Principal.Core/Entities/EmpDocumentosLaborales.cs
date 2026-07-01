@@ -7,6 +7,7 @@
         public required string StrUrlCurriculumVitae { get; set; }
         public required string StrUrlContrato { get; set; }
         public required string StrUrlLicencia { get; set; }
+        public required string StrUrlFotoEmp { get; set; }
 
         public List<EmpEmpleado>? EmpEmpleados { get; set; }
     }

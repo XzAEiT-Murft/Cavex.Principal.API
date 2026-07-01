@@ -8,5 +8,6 @@ namespace Cavex.Principal.API.Dtos.EmpDocumentosLaborales
         public string StrUrlCurriculumVitae { get; set; } = string.Empty;
         public string StrUrlContrato { get; set; } = string.Empty;
         public string StrUrlLicencia { get; set; } = string.Empty;
+        public string StrUrlFotoEmp { get; set; } = string.Empty;
     }
 }

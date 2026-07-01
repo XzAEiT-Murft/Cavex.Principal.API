@@ -31,7 +31,8 @@ namespace Cavex.Principal.Core.Specifications.EmpDocumentosLaborales
                 x.StrUrlComprobanteDomicilio.Contains(search) ||
                 x.StrUrlCurriculumVitae.Contains(search) ||
                 x.StrUrlContrato.Contains(search) ||
-                x.StrUrlLicencia.Contains(search);
+                x.StrUrlLicencia.Contains(search) ||
+                x.StrUrlFotoEmp.Contains(search);
         }
     }
 }

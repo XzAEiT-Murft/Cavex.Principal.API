@@ -39,6 +39,9 @@ namespace Cavex.Principal.Infraestructure.Config
             builder.Property(x => x.StrObservaciones)
                 .HasMaxLength(500);
 
+            builder.Property(x => x.StrMotor)
+                .HasMaxLength(500);
+
             builder.HasOne(x => x.VehCatCapacidad)
                 .WithMany(x => x.VehDatosGenerales)
                 .HasForeignKey(x => x.IdVehCatCapacidad)
@@ -67,6 +70,11 @@ namespace Cavex.Principal.Infraestructure.Config
             builder.HasOne(x => x.VehCatTipoVehiculo)
                 .WithMany(x => x.VehDatosGenerales)
                 .HasForeignKey(x => x.IdVehCatTipoVehiculo)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(x => x.VehCatTransmision)
+                .WithMany(x => x.VehDatosGenerales)
+                .HasForeignKey(x => x.IdVehCatTransmision)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }

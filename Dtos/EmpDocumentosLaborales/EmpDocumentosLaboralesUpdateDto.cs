@@ -23,5 +23,9 @@ namespace Cavex.Principal.API.Dtos.EmpDocumentosLaborales
         [Required]
         [MaxLength(2048)]
         public string StrUrlLicencia { get; set; } = string.Empty;
+
+        [Required]
+        [MaxLength(2048)]
+        public string StrUrlFotoEmp { get; set; } = string.Empty;
     }
 }

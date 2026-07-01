@@ -19,5 +19,7 @@ namespace Cavex.Principal.API.Dtos.VehDatosGenerales
         public string? StrUrlFoto { get; set; }
         public DateOnly DteFechaRegistro { get; set; }
         public string? StrObservaciones { get; set; }
+        public string? StrMotor { get; set; }
+        public int IdVehCatTransmision { get; set; }
     }
 }

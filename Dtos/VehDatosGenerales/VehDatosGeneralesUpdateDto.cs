@@ -44,5 +44,10 @@ namespace Cavex.Principal.API.Dtos.VehDatosGenerales
 
         [MaxLength(500)]
         public string? StrObservaciones { get; set; }
+
+        [MaxLength(500)]
+        public string? StrMotor { get; set; }
+
+        public int IdVehCatTransmision { get; set; }
     }
 }

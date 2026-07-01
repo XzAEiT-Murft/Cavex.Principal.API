@@ -18,6 +18,8 @@
         public string? StrUrlFoto { get; set; }
         public DateOnly DteFechaRegistro { get; set; }
         public string? StrObservaciones { get; set; }
+        public string? StrMotor { get; set; }
+        public int IdVehCatTransmision { get; set; }
 
         public VehCatMarcaVehiculo? VehCatMarcaVehiculo { get; set; }
         public VehCatColor? VehCatColor { get; set; }
@@ -25,6 +27,7 @@
         public VehCatCapacidad? VehCatCapacidad { get; set; }
         public VehCatTipoCombustible? VehCatTipoCombustible { get; set; }
         public VehCatStatus? VehCatStatus { get; set; }
+        public VehCatTransmision? VehCatTransmision { get; set; }
 
         public List<VehAsignacionVehiculos>? VehAsignacionesVehiculos { get; set; }
         public List<VehContratoArrendamiento>? VehContratosArrendamiento { get; set; }

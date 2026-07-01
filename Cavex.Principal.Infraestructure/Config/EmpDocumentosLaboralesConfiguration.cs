@@ -34,6 +34,10 @@ namespace Cavex.Principal.Infraestructure.Config
             builder.Property(x => x.StrUrlLicencia)
                 .IsRequired()
                 .HasMaxLength(2048);
+
+            builder.Property(x => x.StrUrlFotoEmp)
+                .IsRequired()
+                .HasMaxLength(2048);
         }
     }
 }
