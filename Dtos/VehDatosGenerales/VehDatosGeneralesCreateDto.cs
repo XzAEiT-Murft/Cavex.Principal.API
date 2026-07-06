@@ -25,7 +25,8 @@ namespace Cavex.Principal.API.Dtos.VehDatosGenerales
         [MaxLength(20)]
         public string StrPlaca { get; set; } = string.Empty;
 
-        public int? IntNumMotor { get; set; }
+        [MaxLength(50)]
+        public string? StrNumMotor { get; set; }
 
         public int IdVehCatTipoVehiculo { get; set; }
 

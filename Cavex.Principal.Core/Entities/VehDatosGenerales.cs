@@ -10,6 +10,7 @@
         public int IdVehCatColor { get; set; }
         public required string StrPlaca { get; set; }
         public int? IntNumMotor { get; set; }
+        public string? StrNumMotor { get; set; }
         public int IdVehCatTipoVehiculo { get; set; }
         public int IdVehCatCapacidad { get; set; }
         public int IdVehCatTipoCombustible { get; set; }

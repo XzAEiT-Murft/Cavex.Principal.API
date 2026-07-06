@@ -10,7 +10,7 @@ namespace Cavex.Principal.API.Dtos.VehDatosGenerales
         public string? StrVersion { get; set; }
         public int IdVehCatColor { get; set; }
         public string StrPlaca { get; set; } = string.Empty;
-        public int? IntNumMotor { get; set; }
+        public string? StrNumMotor { get; set; }
         public int IdVehCatTipoVehiculo { get; set; }
         public int IdVehCatCapacidad { get; set; }
         public int IdVehCatTipoCombustible { get; set; }

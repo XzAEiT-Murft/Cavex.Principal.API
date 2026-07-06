@@ -23,6 +23,9 @@ namespace Cavex.Principal.Infraestructure.Config
                 .IsRequired()
                 .HasMaxLength(200);
 
+            builder.Property(x => x.BigTelefono)
+                .IsRequired();
+
             builder.HasOne(x => x.EmpEmpleado)
                 .WithMany(x => x.EmpReferenciasPersonales)
                 .HasForeignKey(x => x.IdEmpEmpleado)

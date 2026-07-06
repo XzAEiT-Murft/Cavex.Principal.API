@@ -10,7 +10,8 @@ namespace Cavex.Principal.Core.Entities
     {
         public required string StrNombreCompleto { get; set; }
         public required string StrParentezco { get; set; }
-        public int IntTelefono { get; set; }
+        public long IntTelefono { get; set; }
+        public long BigTelefono { get; set; }
         public int IdEmpEmpleado { get; set; }
 
         public EmpEmpleado? EmpEmpleado { get; set; }

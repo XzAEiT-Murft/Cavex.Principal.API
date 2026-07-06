@@ -23,12 +23,16 @@ namespace Cavex.Principal.Core.Specifications.EmpTelefono
             if (string.IsNullOrWhiteSpace(search))
                 return x => true;
 
-            if (int.TryParse(search, out var searchId))
-                return x => x.IdEmpEmpleado == searchId || x.Id == searchId;
+            if (long.TryParse(search, out var searchId))
+            {
+                return x =>
+                    x.IdEmpEmpleado == searchId ||
+                    x.Id == searchId ||
+                    x.BigNumeroFijo == searchId ||
+                    x.BigNumeroCelular == searchId;
+            }
 
-            return x =>
-                x.StrNumeroFijo.Contains(search) ||
-                (x.StrNumeroCelular != null && x.StrNumeroCelular.Contains(search));
+            return x => false;
         }
     }
 }
