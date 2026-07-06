@@ -30,6 +30,9 @@ namespace Cavex.Principal.Infraestructure.Config
                 .IsRequired()
                 .HasMaxLength(20);
 
+            builder.Property(x => x.StrNumMotor)
+                .HasMaxLength(50);
+
             builder.Property(x => x.DecKilometrajeActual)
                 .HasColumnType("decimal(18,0)");
 

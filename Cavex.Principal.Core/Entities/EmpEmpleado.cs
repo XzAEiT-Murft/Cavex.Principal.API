@@ -10,7 +10,8 @@
         public required string StrCurp { get; set; }
         public int IntEdad { get; set; }
         public required string StrCorreoElectronico { get; set; }
-        public int IntNss { get; set; }
+        public long IntNss { get; set; }
+        public long BigNss { get; set; }
 
         public int IdEmpCatGenero { get; set; }
         public int IdEmpCatEstadoCivil { get; set; }

@@ -5,11 +5,9 @@ namespace Cavex.Principal.API.Dtos.EmpTelefono
     public class EmpTelefonoCreateDto
     {
         [Required]
-        [MaxLength(50)]
-        public string StrNumeroFijo { get; set; } = string.Empty;
+        public long BigNumeroFijo { get; set; }
 
-        [MaxLength(50)]
-        public string? StrNumeroCelular { get; set; }
+        public long? BigNumeroCelular { get; set; }
 
         [Required]
         public int IdEmpEmpleado { get; set; }

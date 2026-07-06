@@ -9,8 +9,10 @@ namespace Cavex.Principal.API.Mapping
         public EmpReferenciasPersonalesProfile()
         {
             CreateMap<EmpReferenciasPersonales, EmpReferenciasPersonalesDto>();
-            CreateMap<EmpReferenciasPersonalesCreateDto, EmpReferenciasPersonales>();
-            CreateMap<EmpReferenciasPersonalesUpdateDto, EmpReferenciasPersonales>();
+            CreateMap<EmpReferenciasPersonalesCreateDto, EmpReferenciasPersonales>()
+                .ForMember(dest => dest.IntTelefono, opt => opt.MapFrom(src => src.BigTelefono));
+            CreateMap<EmpReferenciasPersonalesUpdateDto, EmpReferenciasPersonales>()
+                .ForMember(dest => dest.IntTelefono, opt => opt.MapFrom(src => src.BigTelefono));
         }
     }
 }

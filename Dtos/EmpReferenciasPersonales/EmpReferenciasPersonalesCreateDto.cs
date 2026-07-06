@@ -13,7 +13,7 @@ namespace Cavex.Principal.API.Dtos.EmpReferenciasPersonales
         public string StrParentezco { get; set; } = string.Empty;
 
         [Required]
-        public int IntTelefono { get; set; }
+        public long BigTelefono { get; set; }
 
         [Required]
         public int IdEmpEmpleado { get; set; }

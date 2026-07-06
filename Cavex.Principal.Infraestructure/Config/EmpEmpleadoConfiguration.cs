@@ -38,6 +38,9 @@ namespace Cavex.Principal.Infraestructure.Config
                 .IsRequired()
                 .HasMaxLength(100);
 
+            builder.Property(x => x.BigNss)
+                .IsRequired();
+
             builder.HasOne(x => x.EmpCatGenero)
                 .WithMany(x => x.EmpEmpleados)
                 .HasForeignKey(x => x.IdEmpCatGenero)

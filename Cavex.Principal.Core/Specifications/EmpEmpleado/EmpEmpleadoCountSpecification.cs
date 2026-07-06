@@ -14,12 +14,12 @@ namespace Cavex.Principal.Core.Specifications.EmpEmpleado
             if (string.IsNullOrWhiteSpace(search))
                 return x => true;
 
-            if (int.TryParse(search, out var searchId))
+            if (long.TryParse(search, out var searchId))
             {
                 return x =>
                     x.Id == searchId ||
                     x.IntEdad == searchId ||
-                    x.IntNss == searchId ||
+                    x.BigNss == searchId ||
                     x.IdEmpCatGenero == searchId ||
                     x.IdEmpCatEstadoCivil == searchId ||
                     x.IdEmpCatNacionalidad == searchId ||

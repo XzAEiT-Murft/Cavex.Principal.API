@@ -211,7 +211,8 @@ namespace Cavex.Principal.API.Controllers
             entity.StrCurp = request.Body.StrCurp;
             entity.IntEdad = request.Body.IntEdad;
             entity.StrCorreoElectronico = request.Body.StrCorreoElectronico;
-            entity.IntNss = request.Body.IntNss;
+            entity.BigNss = request.Body.BigNss;
+            entity.IntNss = request.Body.BigNss;
             entity.IdEmpCatGenero = request.Body.IdEmpCatGenero;
             entity.IdEmpCatEstadoCivil = request.Body.IdEmpCatEstadoCivil;
             entity.IdEmpCatNacionalidad = request.Body.IdEmpCatNacionalidad;

@@ -14,11 +14,11 @@ namespace Cavex.Principal.Core.Specifications.EmpReferenciasPersonales
             if (string.IsNullOrWhiteSpace(search))
                 return x => true;
 
-            if (int.TryParse(search, out var searchId))
+            if (long.TryParse(search, out var searchId))
             {
                 return x =>
                     x.Id == searchId ||
-                    x.IntTelefono == searchId ||
+                    x.BigTelefono == searchId ||
                     x.IdEmpEmpleado == searchId;
             }
 
