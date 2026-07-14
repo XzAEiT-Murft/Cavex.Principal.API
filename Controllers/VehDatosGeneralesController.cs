@@ -149,6 +149,7 @@ namespace Cavex.Principal.API.Controllers
             }
 
             var entity = _mapper.Map<VehDatosGenerales>(request.Body);
+            
             _repository.Add(entity);
             await _repository.SaveAllAsync();
             InvalidateListCache();
