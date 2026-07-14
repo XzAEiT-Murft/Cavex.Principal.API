@@ -75,10 +75,10 @@ namespace Cavex.Principal.Infraestructure.Config
                 .HasForeignKey(x => x.IdVehCatTipoVehiculo)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasOne(x => x.VehCatTransmision)
+            /*builder.HasOne(x => x.VehCatTransmision)
                 .WithMany(x => x.VehDatosGenerales)
                 .HasForeignKey(x => x.IdVehCatTransmision)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Restrict);*/
         }
     }
 }
