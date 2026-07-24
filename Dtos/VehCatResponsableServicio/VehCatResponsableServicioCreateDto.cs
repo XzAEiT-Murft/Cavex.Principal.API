@@ -10,5 +10,7 @@ namespace Cavex.Principal.API.Dtos.VehCatResponsableServicio
 
         [MaxLength(500)]
         public string? StrDescripcion { get; set; }
+
+        public int IdVehCatStatus { get; set; } = 1;
     }
 }

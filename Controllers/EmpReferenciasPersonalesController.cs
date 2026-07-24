@@ -218,8 +218,7 @@ namespace Cavex.Principal.API.Controllers
 
             entity.StrNombreCompleto = request.Body.StrNombreCompleto;
             entity.StrParentezco = request.Body.StrParentezco;
-            entity.BigTelefono = request.Body.BigTelefono;
-            entity.IntTelefono = request.Body.BigTelefono;
+            entity.IntTelefono = request.Body.IntTelefono;
             entity.IdEmpEmpleado = request.Body.IdEmpEmpleado;
 
             _repository.Update(entity);

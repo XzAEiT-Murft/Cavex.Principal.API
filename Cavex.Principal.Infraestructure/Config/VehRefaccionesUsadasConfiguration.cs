@@ -1,4 +1,4 @@
-using Cavex.Principal.Core.Entities;
+﻿using Cavex.Principal.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -20,9 +20,9 @@ namespace Cavex.Principal.Infraestructure.Config
                 .HasForeignKey(x => x.IdVehCatRefacciones)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasOne(x => x.VehControlServicio)
+            builder.HasOne(x => x.VehServicioDetalle)
                 .WithMany(x => x.VehRefaccionesUsadas)
-                .HasForeignKey(x => x.IdVehControlServicio)
+                .HasForeignKey(x => x.IdVehServicioDetalle)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }

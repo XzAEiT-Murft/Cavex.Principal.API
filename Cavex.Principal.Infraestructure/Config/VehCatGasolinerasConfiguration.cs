@@ -21,6 +21,10 @@ namespace Cavex.Principal.Infraestructure.Config
 
             builder.Property(x => x.StrDescripcion)
                 .HasMaxLength(500);
+
+            builder.Property(x => x.IdVehCatStatus)
+                .IsRequired()
+                .HasDefaultValue(1);
         }
     }
 }

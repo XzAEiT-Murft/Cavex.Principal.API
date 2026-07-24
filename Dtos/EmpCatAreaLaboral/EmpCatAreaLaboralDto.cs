@@ -1,4 +1,4 @@
-﻿namespace Cavex.Principal.API.Dtos.EmpCatAreaLaboral
+namespace Cavex.Principal.API.Dtos.EmpCatAreaLaboral
 {
     public class EmpCatAreaLaboralDto
     {
@@ -23,5 +23,11 @@
             /// </summary>
             /// <example>Area responsable de administracion de personal.</example>
             public string? StrDescripcion { get; set; }
+
+            /// <summary>
+            /// Identificador del estatus.
+            /// </summary>
+            /// <example>1</example>
+            public int IdCatStatus { get; set; }
     }
 }

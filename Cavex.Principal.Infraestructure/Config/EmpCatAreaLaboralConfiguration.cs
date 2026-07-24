@@ -1,4 +1,4 @@
-﻿using Cavex.Principal.Core.Entities;
+using Cavex.Principal.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -20,7 +20,10 @@ namespace Cavex.Principal.Infraestructure.Config
             builder.Property(x => x.StrDescripcion)
                 .HasMaxLength(450);
 
-           
+            builder.HasOne(x => x.CatStatus)
+                .WithMany()
+                .HasForeignKey(x => x.IdCatStatus)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

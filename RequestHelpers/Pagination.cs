@@ -1,4 +1,4 @@
-﻿namespace Cavex.Principal.API.RequestHelpers
+namespace Cavex.Principal.API.RequestHelpers
 {
     /// <summary>
     /// Parametros comunes para consultas paginadas desde query string.
@@ -27,5 +27,10 @@
         /// Texto opcional usado por las specifications para filtrar resultados.
         /// </summary>
         public string? Search { get; set; }
+
+        /// <summary>
+        /// Identificador de estado opcional para filtrar resultados.
+        /// </summary>
+        public int? Status { get; set; }
     }
 }

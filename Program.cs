@@ -107,6 +107,28 @@ try {
 
     app.MapControllers();
 
+    using (var scope = app.Services.CreateScope())
+    {
+        var services = scope.ServiceProvider;
+        try
+        {
+            var context = services.GetRequiredService<CavexContext>();
+            context.Database.EnsureCreated();
+            if (!context.VehCatTransmisiones.Any())
+            {
+                context.VehCatTransmisiones.AddRange(
+                    new Cavex.Principal.Core.Entities.VehCatTransmision { StrValor = "Manual", StrDescripcion = "Transmisión manual o estándar" },
+                    new Cavex.Principal.Core.Entities.VehCatTransmision { StrValor = "Automática", StrDescripcion = "Transmisión automática" }
+                );
+                context.SaveChanges();
+            }
+        }
+        catch (Exception ex)
+        {
+            logger.Error(ex, "Ocurrió un error al sembrar los datos de transmisión.");
+        }
+    }
+
     app.Run();
 
 }

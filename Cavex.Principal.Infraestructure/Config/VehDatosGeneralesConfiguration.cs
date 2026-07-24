@@ -30,8 +30,7 @@ namespace Cavex.Principal.Infraestructure.Config
                 .IsRequired()
                 .HasMaxLength(20);
 
-            builder.Property(x => x.StrNumMotor)
-                .HasMaxLength(50);
+            builder.Property(x => x.IntNumMotor);
 
             builder.Property(x => x.DecKilometrajeActual)
                 .HasColumnType("decimal(18,0)");
@@ -75,10 +74,10 @@ namespace Cavex.Principal.Infraestructure.Config
                 .HasForeignKey(x => x.IdVehCatTipoVehiculo)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            /*builder.HasOne(x => x.VehCatTransmision)
+            builder.HasOne(x => x.VehCatTransmision)
                 .WithMany(x => x.VehDatosGenerales)
                 .HasForeignKey(x => x.IdVehCatTransmision)
-                .OnDelete(DeleteBehavior.Restrict);*/
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Cavex.Principal.Core.Entities
+namespace Cavex.Principal.Core.Entities
 {
     public class VehDatosGenerales : BaseEntity
     {
@@ -9,8 +9,7 @@
         public string? StrVersion { get; set; }
         public int IdVehCatColor { get; set; }
         public required string StrPlaca { get; set; }
-        //public int? IntNumMotor { get; set; }
-        public string? StrNumMotor { get; set; }
+        public int? IntNumMotor { get; set; }
         public int IdVehCatTipoVehiculo { get; set; }
         public int IdVehCatCapacidad { get; set; }
         public int IdVehCatTipoCombustible { get; set; }
@@ -20,7 +19,7 @@
         public DateOnly DteFechaRegistro { get; set; }
         public string? StrObservaciones { get; set; }
         public string? StrMotor { get; set; }
-        //public int IdVehCatTransmision { get; set; }
+        public int IdVehCatTransmision { get; set; }
 
         public VehCatMarcaVehiculo? VehCatMarcaVehiculo { get; set; }
         public VehCatColor? VehCatColor { get; set; }
@@ -28,7 +27,7 @@
         public VehCatCapacidad? VehCatCapacidad { get; set; }
         public VehCatTipoCombustible? VehCatTipoCombustible { get; set; }
         public VehCatStatus? VehCatStatus { get; set; }
-        //public VehCatTransmision VehCatTransmision { get; set; }
+        public VehCatTransmision? VehCatTransmision { get; set; }
 
         public List<VehAsignacionVehiculos>? VehAsignacionesVehiculos { get; set; }
         public List<VehContratoArrendamiento>? VehContratosArrendamiento { get; set; }

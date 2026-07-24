@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Cavex.Principal.API.Dtos.EmpTelefono;
 using Cavex.Principal.Core.Entities;
 
@@ -8,7 +8,9 @@ namespace Cavex.Principal.API.Mapping
     {
         public EmpTelefonoProfile()
         {
-            CreateMap<EmpTelefono, EmpTelefonoDto>();
+            CreateMap<EmpTelefono, EmpTelefonoDto>()
+                .ForMember(dest => dest.BigNumeroFijo, opt => opt.MapFrom(src => ParseLong(src.StrNumeroFijo)))
+                .ForMember(dest => dest.BigNumeroCelular, opt => opt.MapFrom(src => ParseNullableLong(src.StrNumeroCelular)));
             CreateMap<EmpTelefonoCreateDto, EmpTelefono>()
                 .ForMember(dest => dest.StrNumeroFijo, opt => opt.MapFrom(src => src.BigNumeroFijo.ToString()))
                 .ForMember(dest => dest.StrNumeroCelular, opt => opt.MapFrom(src => src.BigNumeroCelular.HasValue ? src.BigNumeroCelular.Value.ToString() : null));
@@ -16,5 +18,8 @@ namespace Cavex.Principal.API.Mapping
                 .ForMember(dest => dest.StrNumeroFijo, opt => opt.MapFrom(src => src.BigNumeroFijo.ToString()))
                 .ForMember(dest => dest.StrNumeroCelular, opt => opt.MapFrom(src => src.BigNumeroCelular.HasValue ? src.BigNumeroCelular.Value.ToString() : null));
         }
+
+        private static long ParseLong(string val) => long.TryParse(val, out var res) ? res : 0;
+        private static long? ParseNullableLong(string? val) => long.TryParse(val, out var res) ? (long?)res : null;
     }
 }

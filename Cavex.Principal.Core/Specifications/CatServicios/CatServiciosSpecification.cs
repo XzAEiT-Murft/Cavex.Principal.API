@@ -1,9 +1,11 @@
-﻿namespace Cavex.Principal.Core.Specifications.CatServicios
+namespace Cavex.Principal.Core.Specifications.CatServicios
 {
     public class CatServiciosSpecification : BaseSpecification<Entities.CatServicios>
     {
-        public CatServiciosSpecification(string? search, 
-            int pageIndex, int pageSize) : base(x => string.IsNullOrWhiteSpace(search) || x.StrValor.Contains(search))
+        public CatServiciosSpecification(string? search, int? status, 
+            int pageIndex, int pageSize) : base(x => 
+                (string.IsNullOrWhiteSpace(search) || x.StrValor.Contains(search)) &&
+                (!status.HasValue || x.IdCatStatus == status.Value))
         {
             AddOrderBy(x => x.StrValor);
 

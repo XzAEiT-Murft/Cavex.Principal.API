@@ -1,4 +1,4 @@
-﻿using Cavex.Principal.Core.Contract;
+using Cavex.Principal.Core.Contract;
 using System.Linq.Expressions;
 
 namespace Cavex.Principal.Core.Specifications
@@ -15,6 +15,16 @@ namespace Cavex.Principal.Core.Specifications
         /// Expresion de filtro que se traduce a WHERE cuando EF Core ejecuta la consulta.
         /// </summary>
         public Expression<Func<T, bool>>? Criteria => criteria;
+
+        /// <summary>
+        /// Coleccion de expresiones Include.
+        /// </summary>
+        public List<Expression<Func<T, object>>> Includes { get; } = new List<Expression<Func<T, object>>>();
+
+        /// <summary>
+        /// Coleccion de cadenas de Include (para relaciones anidadas o especificas).
+        /// </summary>
+        public List<string> IncludeStrings { get; } = new List<string>();
 
         /// <summary>
         /// Expresion de ordenamiento ascendente.
@@ -61,6 +71,16 @@ namespace Cavex.Principal.Core.Specifications
         protected void AddOrderBy(Expression<Func<T, object>> orderByExpression)
         {
             OrderBy = orderByExpression;
+        }
+
+        protected void AddInclude(Expression<Func<T, object>> includeExpression)
+        {
+            Includes.Add(includeExpression);
+        }
+
+        protected void AddInclude(string includeString)
+        {
+            IncludeStrings.Add(includeString);
         }
 
         protected void AddOrderByDescending(Expression<Func<T, object>> orderByDescExpression)

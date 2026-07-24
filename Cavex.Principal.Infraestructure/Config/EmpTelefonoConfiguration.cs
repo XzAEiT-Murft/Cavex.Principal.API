@@ -1,4 +1,4 @@
-﻿using Cavex.Principal.Core.Entities;
+using Cavex.Principal.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -21,9 +21,6 @@ namespace Cavex.Principal.Infraestructure.Config
 
             builder.Property(x => x.StrNumeroCelular)
                 .HasMaxLength(50);
-
-            builder.Property(x => x.BigNumeroFijo)
-                .IsRequired();
 
             builder.HasOne(x => x.EmpEmpleado)
                 .WithMany(x => x.EmpTelefonos)

@@ -1,10 +1,8 @@
-using System.ComponentModel.DataAnnotations;
-
-namespace Cavex.Principal.API.Dtos.VehRefaccionesUsadas
+﻿namespace Cavex.Principal.API.Dtos.VehRefaccionesUsadas
 {
     public class VehRefaccionesUsadasCreateDto
     {
-        public int IdVehControlServicio { get; set; }
+        public int IdVehServicioDetalle { get; set; }
 
         public int IdVehCatRefacciones { get; set; }
     }

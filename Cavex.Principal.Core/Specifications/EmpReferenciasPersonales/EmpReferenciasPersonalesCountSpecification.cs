@@ -18,7 +18,7 @@ namespace Cavex.Principal.Core.Specifications.EmpReferenciasPersonales
             {
                 return x =>
                     x.Id == searchId ||
-                    x.BigTelefono == searchId ||
+                    x.IntTelefono == searchId ||
                     x.IdEmpEmpleado == searchId;
             }
 

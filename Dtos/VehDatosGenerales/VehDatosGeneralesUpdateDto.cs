@@ -6,6 +6,7 @@ namespace Cavex.Principal.API.Dtos.VehDatosGenerales
     {
         [Required]
         [MaxLength(20)]
+        [RegularExpression(@"^[A-Z0-9]+$", ErrorMessage = "El número de serie solo permite letras y números en mayúsculas.")]
         public string StrNumSerie { get; set; } = string.Empty;
 
         public int IdVehCatMarcaVehiculo { get; set; }
@@ -23,9 +24,11 @@ namespace Cavex.Principal.API.Dtos.VehDatosGenerales
 
         [Required]
         [MaxLength(20)]
+        [RegularExpression(@"^[A-Z0-9-]+$", ErrorMessage = "La placa solo permite letras, números y guiones en mayúsculas.")]
         public string StrPlaca { get; set; } = string.Empty;
 
         [MaxLength(50)]
+        [RegularExpression(@"^[0-9]+$", ErrorMessage = "El número de motor solo permite números.")]
         public string? StrNumMotor { get; set; }
 
         public int IdVehCatTipoVehiculo { get; set; }

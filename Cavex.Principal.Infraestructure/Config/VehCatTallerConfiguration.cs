@@ -21,6 +21,11 @@ namespace Cavex.Principal.Infraestructure.Config
 
             builder.Property(x => x.StrDescripcion)
                 .HasMaxLength(500);
+
+            builder.HasOne(x => x.CatStatus)
+                .WithMany()
+                .HasForeignKey(x => x.IdCatStatus)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

@@ -1,5 +1,6 @@
-﻿using Cavex.Principal.Core.Contract;
+using Cavex.Principal.Core.Contract;
 using Cavex.Principal.Core.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,14 @@ namespace Cavex.Principal.Infraestructure.Data
             if (specification.Criteria != null)
             {
                 query = query.Where(specification.Criteria);
+            }
+            if (specification.Includes != null)
+            {
+                query = specification.Includes.Aggregate(query, (current, include) => current.Include(include));
+            }
+            if (specification.IncludeStrings != null)
+            {
+                query = specification.IncludeStrings.Aggregate(query, (current, include) => current.Include(include));
             }
             if (specification.OrderBy != null)
             {
@@ -52,6 +61,14 @@ namespace Cavex.Principal.Infraestructure.Data
             if (specification.Criteria != null)
             {
                 query = query.Where(specification.Criteria);
+            }
+            if (specification.Includes != null)
+            {
+                query = specification.Includes.Aggregate(query, (current, include) => current.Include(include));
+            }
+            if (specification.IncludeStrings != null)
+            {
+                query = specification.IncludeStrings.Aggregate(query, (current, include) => current.Include(include));
             }
             if (specification.OrderBy != null)
             {

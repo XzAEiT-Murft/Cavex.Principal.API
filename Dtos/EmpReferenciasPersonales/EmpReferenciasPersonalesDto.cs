@@ -5,7 +5,7 @@ namespace Cavex.Principal.API.Dtos.EmpReferenciasPersonales
         public int Id { get; set; }
         public string StrNombreCompleto { get; set; } = string.Empty;
         public string StrParentezco { get; set; } = string.Empty;
-        public long BigTelefono { get; set; }
+        public long IntTelefono { get; set; }
         public int IdEmpEmpleado { get; set; }
     }
 }

@@ -47,13 +47,13 @@ namespace Cavex.Principal.API.Controllers
         public async Task<ActionResult<ResponseWrapper<PagedResponse<EmpEmpleadoDto>>>> GetAll(
             [FromQuery] Pagination pagination)
         {
-            var cacheKey = $"{CachePrefix}:List:Version={_listCacheVersion}:PageIndex={pagination.PageIndex}:PageSize={pagination.PageSize}:Search={pagination.Search}";
+            var cacheKey = $"{CachePrefix}:List:Version={_listCacheVersion}:PageIndex={pagination.PageIndex}:PageSize={pagination.PageSize}:Search={pagination.Search}:Status={pagination.Status}";
 
             if (_cache.TryGetValue(cacheKey, out ResponseWrapper<PagedResponse<EmpEmpleadoDto>>? cachedResponse))
                 return Ok(cachedResponse);
 
-            var specification = new EmpEmpleadoSpecification(pagination.Search, pagination.PageIndex, pagination.PageSize);
-            var countSpecification = new EmpEmpleadoCountSpecification(pagination.Search);
+            var specification = new EmpEmpleadoSpecification(pagination.Search, pagination.PageIndex, pagination.PageSize, pagination.Status);
+            var countSpecification = new EmpEmpleadoCountSpecification(pagination.Search, pagination.Status);
 
             var entities = await _repository.ListAsync(specification);
             var totalCount = await _repository.CountAsync(countSpecification);
@@ -211,16 +211,19 @@ namespace Cavex.Principal.API.Controllers
             entity.StrCurp = request.Body.StrCurp;
             entity.IntEdad = request.Body.IntEdad;
             entity.StrCorreoElectronico = request.Body.StrCorreoElectronico;
-            entity.BigNss = request.Body.BigNss;
-            entity.IntNss = request.Body.BigNss;
+            entity.IntNss = request.Body.IntNss;
             entity.IdEmpCatGenero = request.Body.IdEmpCatGenero;
             entity.IdEmpCatEstadoCivil = request.Body.IdEmpCatEstadoCivil;
             entity.IdEmpCatNacionalidad = request.Body.IdEmpCatNacionalidad;
             entity.IdEmpCatTipoContratacion = request.Body.IdEmpCatTipoContratacion;
-            entity.IdEmpDireccion = request.Body.IdEmpDireccion;
-            entity.IdEmpDatosAcademicos = request.Body.IdEmpDatosAcademicos;
-            entity.IdEmpDocumentosLaborales = request.Body.IdEmpDocumentosLaborales;
-            entity.IdEmpCondicionesLaborales = request.Body.IdEmpCondicionesLaborales;
+            if (request.Body.IdEmpDireccion > 0)
+                entity.IdEmpDireccion = request.Body.IdEmpDireccion;
+            if (request.Body.IdEmpDatosAcademicos > 0)
+                entity.IdEmpDatosAcademicos = request.Body.IdEmpDatosAcademicos;
+            if (request.Body.IdEmpDocumentosLaborales > 0)
+                entity.IdEmpDocumentosLaborales = request.Body.IdEmpDocumentosLaborales;
+            if (request.Body.IdEmpCondicionesLaborales > 0)
+                entity.IdEmpCondicionesLaborales = request.Body.IdEmpCondicionesLaborales;
             entity.IdCatStatus = request.Body.IdCatStatus;
 
             _repository.Update(entity);

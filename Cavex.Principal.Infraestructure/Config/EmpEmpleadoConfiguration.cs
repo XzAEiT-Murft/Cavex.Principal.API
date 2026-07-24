@@ -1,4 +1,4 @@
-﻿using Cavex.Principal.Core.Entities;
+using Cavex.Principal.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -38,7 +38,7 @@ namespace Cavex.Principal.Infraestructure.Config
                 .IsRequired()
                 .HasMaxLength(100);
 
-            builder.Property(x => x.BigNss)
+            builder.Property(x => x.IntNss)
                 .IsRequired();
 
             builder.HasOne(x => x.EmpCatGenero)
@@ -85,8 +85,6 @@ namespace Cavex.Principal.Infraestructure.Config
                 .WithMany(x => x.EmpEmpleados)
                 .HasForeignKey(x => x.IdCatStatus)
                 .OnDelete(DeleteBehavior.Restrict);
-
         }
     }
 }
-

@@ -1,4 +1,4 @@
-﻿namespace Cavex.Principal.Core.Entities
+namespace Cavex.Principal.Core.Entities
 {
     public class EmpEmpleado : BaseEntity
     {
@@ -11,7 +11,7 @@
         public int IntEdad { get; set; }
         public required string StrCorreoElectronico { get; set; }
         public long IntNss { get; set; }
-        public long BigNss { get; set; }
+
 
         public int IdEmpCatGenero { get; set; }
         public int IdEmpCatEstadoCivil { get; set; }
@@ -37,5 +37,6 @@
         public List<EmpHistorialArea>? EmpHistorialAreas { get; set; }
         public List<EmpReferenciasPersonales>? EmpReferenciasPersonales { get; set; }
         public List<EmpTelefono>? EmpTelefonos { get; set; }
+        public List<VehControlServicio>? VehControlesServicio { get; set; }
     }
 }

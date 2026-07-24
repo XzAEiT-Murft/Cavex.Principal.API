@@ -7,7 +7,7 @@
 
         public List<VehContratoArrendamiento>? VehContratosArrendamiento { get; set; }
         public List<VehControlGasolina>? VehControlesGasolina { get; set; }
-        public List<VehControlServicio>? VehControlesServicio { get; set; }
+        public List<VehServicioDetalle>? VehServiciosDetalle { get; set; }
         public List<VehInfracciones>? VehInfracciones { get; set; }
         public List<VehPermisoTransporte>? VehPermisosTransporte { get; set; }
         public List<VehPlacas>? VehPlacas { get; set; }

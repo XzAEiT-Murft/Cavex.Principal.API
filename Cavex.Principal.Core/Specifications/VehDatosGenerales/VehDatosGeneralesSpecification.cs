@@ -9,7 +9,7 @@ namespace Cavex.Principal.Core.Specifications.VehDatosGenerales
                 x.StrModelo.Contains(search) ||
                 (x.StrVersion != null && x.StrVersion.Contains(search)) ||
                 x.StrPlaca.Contains(search) ||
-                (x.StrNumMotor != null && x.StrNumMotor.Contains(search)) ||
+                (x.IntNumMotor != null && x.IntNumMotor.ToString().Contains(search)) ||
                 (x.StrMotor != null && x.StrMotor.Contains(search)))
         {
             AddOrderBy(x => x.StrNumSerie);

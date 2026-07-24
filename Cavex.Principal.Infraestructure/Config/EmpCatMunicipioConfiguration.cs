@@ -1,4 +1,4 @@
-﻿using Cavex.Principal.Core.Entities;
+using Cavex.Principal.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -25,6 +25,8 @@ namespace Cavex.Principal.Infraestructure.Config
             builder.HasOne(x => x.EmpCatEntidadFederativa)
                 .WithMany(x => x.EmpCatMunicipios)
                 .HasForeignKey(x => x.IdEmpCatEntidadFederativa);
+            
+            builder.Navigation(x => x.EmpCatEntidadFederativa).AutoInclude();
         }
     }
 }

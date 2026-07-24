@@ -47,7 +47,7 @@ namespace Cavex.Principal.API.Controllers
         public async Task<ActionResult<ResponseWrapper<PagedResponse<CatSucursalesDto>>>> GetAll(
             [FromQuery] Pagination pagination)
         {
-            var cacheKey = $"{CachePrefix}:List:Version={_listCacheVersion}:PageIndex={pagination.PageIndex}:PageSize={pagination.PageSize}:Search={pagination.Search}";
+            var cacheKey = $"{CachePrefix}:List:Version={_listCacheVersion}:PageIndex={pagination.PageIndex}:PageSize={pagination.PageSize}:Search={pagination.Search}:Status={pagination.Status}";
 
             if (_cache.TryGetValue(cacheKey, out ResponseWrapper<PagedResponse<CatSucursalesDto>>? cachedResponse))
             {
@@ -56,10 +56,11 @@ namespace Cavex.Principal.API.Controllers
 
             var specification = new CatSucursalesSpecification(
                 pagination.Search,
+                pagination.Status,
                 pagination.PageIndex,
                 pagination.PageSize);
 
-            var countSpecification = new CatSucursalesCountSpecification(pagination.Search);
+            var countSpecification = new CatSucursalesCountSpecification(pagination.Search, pagination.Status);
 
             var entities = await _repository.ListAsync(specification);
             var totalCount = await _repository.CountAsync(countSpecification);

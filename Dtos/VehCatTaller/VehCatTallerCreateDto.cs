@@ -10,5 +10,6 @@ namespace Cavex.Principal.API.Dtos.VehCatTaller
 
         [MaxLength(500)]
         public string? StrDescripcion { get; set; }
+        public int IdCatStatus { get; set; } = 1;
     }
 }

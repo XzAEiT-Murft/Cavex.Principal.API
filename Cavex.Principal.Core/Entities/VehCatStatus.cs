@@ -1,4 +1,4 @@
-﻿namespace Cavex.Principal.Core.Entities
+namespace Cavex.Principal.Core.Entities
 {
     public class VehCatStatus : BaseEntity
     {
@@ -7,6 +7,7 @@
 
         public List<VehContratoArrendamiento>? VehContratosArrendamiento { get; set; }
         public List<VehControlLlanta>? VehControlesLlanta { get; set; }
+        public List<VehControlServicio>? VehControlesServicio { get; set; }
         public List<VehDaniosAccidentes>? VehDaniosAccidentes { get; set; }
         public List<VehDatosGenerales>? VehDatosGenerales { get; set; }
         public List<VehInfracciones>? VehInfracciones { get; set; }

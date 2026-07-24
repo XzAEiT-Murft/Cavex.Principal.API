@@ -30,6 +30,8 @@ namespace Cavex.Principal.Infraestructure.Config
                 .WithMany(x => x.EmpCatColonias)
                 .HasForeignKey(x => x.IntEmpCatMunicipio)
                 .OnDelete(DeleteBehavior.Restrict);
+            
+            builder.Navigation(x => x.EmpCatMunicipio).AutoInclude();
         }
     }
 }

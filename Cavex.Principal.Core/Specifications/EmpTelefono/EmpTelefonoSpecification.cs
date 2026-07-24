@@ -1,4 +1,4 @@
-﻿using System.Linq.Expressions;
+using System.Linq.Expressions;
 
 namespace Cavex.Principal.Core.Specifications.EmpTelefono
 {
@@ -28,8 +28,8 @@ namespace Cavex.Principal.Core.Specifications.EmpTelefono
                 return x =>
                     x.IdEmpEmpleado == searchId ||
                     x.Id == searchId ||
-                    x.BigNumeroFijo == searchId ||
-                    x.BigNumeroCelular == searchId;
+                    x.StrNumeroFijo.Contains(search) ||
+                    (x.StrNumeroCelular != null && x.StrNumeroCelular.Contains(search));
             }
 
             return x => false;

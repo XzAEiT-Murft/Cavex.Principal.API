@@ -3,7 +3,7 @@ namespace Cavex.Principal.Core.Specifications.VehControlGasolina
     public class VehControlGasolinaSpecification : BaseSpecification<Entities.VehControlGasolina>
     {
         public VehControlGasolinaSpecification(string? search, int pageIndex, int pageSize)
-            : base(x => string.IsNullOrWhiteSpace(search) || x.StrUrlComprobantePago.Contains(search))
+            : base(x => string.IsNullOrWhiteSpace(search) || (x.StrUrlComprobantePago != null && x.StrUrlComprobantePago.Contains(search)))
         {
             AddOrderBy(x => x.StrUrlComprobantePago);
 

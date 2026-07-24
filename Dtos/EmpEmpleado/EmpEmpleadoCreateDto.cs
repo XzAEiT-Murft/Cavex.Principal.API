@@ -34,7 +34,7 @@ namespace Cavex.Principal.API.Dtos.EmpEmpleado
         public string StrCorreoElectronico { get; set; } = string.Empty;
 
         [Required]
-        public long BigNss { get; set; }
+        public long IntNss { get; set; }
 
         [Required]
         public int IdEmpCatGenero { get; set; }

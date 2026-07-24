@@ -23,7 +23,7 @@ namespace Cavex.Principal.Infraestructure.Config
                 .IsRequired()
                 .HasMaxLength(200);
 
-            builder.Property(x => x.BigTelefono)
+            builder.Property(x => x.IntTelefono)
                 .IsRequired();
 
             builder.HasOne(x => x.EmpEmpleado)

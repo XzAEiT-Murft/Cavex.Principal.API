@@ -217,8 +217,6 @@ namespace Cavex.Principal.API.Controllers
                 });
             }
 
-            entity.BigNumeroFijo = request.Body.BigNumeroFijo;
-            entity.BigNumeroCelular = request.Body.BigNumeroCelular;
             entity.StrNumeroFijo = request.Body.BigNumeroFijo.ToString();
             entity.StrNumeroCelular = request.Body.BigNumeroCelular?.ToString();
             entity.IdEmpEmpleado = request.Body.IdEmpEmpleado;

@@ -8,5 +8,7 @@ namespace Cavex.Principal.API.Dtos.EmpCatColonia
         public int IntCodigoPostal { get; set; }
         public string StrTipoAsentamiento { get; set; } = string.Empty;
         public int IntEmpCatMunicipio { get; set; }
+        public string? StrMunicipio { get; set; }
+        public string? StrEstado { get; set; }
     }
 }

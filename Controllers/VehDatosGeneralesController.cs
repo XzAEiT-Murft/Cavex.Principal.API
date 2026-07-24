@@ -1,12 +1,14 @@
-using AutoMapper;
+﻿using AutoMapper;
 using Cavex.Principal.API.Dtos.VehDatosGenerales;
 using Cavex.Principal.API.RequestHelpers;
 using Cavex.Principal.Common.Transfer;
 using Cavex.Principal.Core.Contract;
 using Cavex.Principal.Core.Entities;
 using Cavex.Principal.Core.Specifications.VehDatosGenerales;
+using Cavex.Principal.Infraestructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Net;
@@ -24,13 +26,15 @@ namespace Cavex.Principal.API.Controllers
         private readonly IGenericRepository<VehDatosGenerales> _repository;
         private readonly IMapper _mapper;
         private readonly IMemoryCache _cache;
+        private readonly CavexContext _context;
         private static int _listCacheVersion = 1;
 
-        public VehDatosGeneralesController(IGenericRepository<VehDatosGenerales> repository, IMapper mapper, IMemoryCache cache)
+        public VehDatosGeneralesController(IGenericRepository<VehDatosGenerales> repository, IMapper mapper, IMemoryCache cache, CavexContext context)
         {
             _repository = repository;
             _mapper = mapper;
             _cache = cache;
+            _context = context;
         }
 
         /// <summary>
@@ -238,8 +242,66 @@ namespace Cavex.Principal.API.Controllers
                 });
             }
 
-            _repository.Remove(entity);
-            await _repository.SaveAllAsync();
+            using var transaction = await _context.Database.BeginTransactionAsync();
+            try
+            {
+                // Eliminar en cascada los registros de las 15 tablas que referencian idVehDatosGenerales
+                // Primero eliminamos VehDocumentosVehiculo, ya que contiene claves forÃ¡neas que apuntan a otras sub-tablas (Revista, Placas, Seguro, etc.)
+                await _context.Database.ExecuteSqlRawAsync("DELETE FROM VehDocumentosVehiculo WHERE idVehDatosGenerales = {0}", id);
+
+                // Luego eliminamos VehDaniosAccidentes, ya que puede apuntar a la tabla VehSeguro
+                await _context.Database.ExecuteSqlRawAsync("DELETE FROM VehDaniosAccidentes WHERE idVehDatosGenerales = {0}", id);
+
+                // Finalmente eliminamos las demÃ¡s tablas dependientes de la principal sin orden especÃ­fico
+                await _context.Database.ExecuteSqlRawAsync("DELETE FROM VehRevistaVehicular WHERE idVehDatosGenerales = {0}", id);
+                await _context.Database.ExecuteSqlRawAsync("DELETE FROM VehInfracciones WHERE idVehDatosGenerales = {0}", id);
+                await _context.Database.ExecuteSqlRawAsync("DELETE FROM VehControlLlanta WHERE idVehDatosGenerales = {0}", id);
+                await _context.Database.ExecuteSqlRawAsync("DELETE FROM VehControlGasolina WHERE idVehDatosGenerales = {0}", id);
+                
+                // VehServicioDetalle concentra el detalle del servicio en el modelo nuevo de BD.
+                // Guardamos sus ids antes de borrar VehControlServicio para limpiar refacciones y evitar registros huerfanos.
+                await _context.Database.ExecuteSqlRawAsync(@"
+DECLARE @DetallesServicio TABLE (Id int);
+
+INSERT INTO @DetallesServicio (Id)
+SELECT DISTINCT idVehServicioDetalle
+FROM VehControlServicio
+WHERE idVehDatosGenerales = {0}
+  AND idVehServicioDetalle IS NOT NULL;
+
+DELETE FROM VehRefaccionesUsadas
+WHERE idVehServicioDetalle IN (SELECT Id FROM @DetallesServicio);
+
+DELETE FROM VehControlServicio
+WHERE idVehDatosGenerales = {0};
+
+DELETE FROM VehServicioDetalle
+WHERE id IN (SELECT Id FROM @DetallesServicio);", id);
+                await _context.Database.ExecuteSqlRawAsync("DELETE FROM VehTarjetaCirculacion WHERE idVehDatosGenerales = {0}", id);
+                await _context.Database.ExecuteSqlRawAsync("DELETE FROM VehTenencia WHERE idVehDatosGenerales = {0}", id);
+                await _context.Database.ExecuteSqlRawAsync("DELETE FROM VehSeguro WHERE idVehDatosGenerales = {0}", id);
+                await _context.Database.ExecuteSqlRawAsync("DELETE FROM VehPlacas WHERE idVehDatosGenerales = {0}", id);
+                await _context.Database.ExecuteSqlRawAsync("DELETE FROM VehAsignacionVehiculos WHERE idVehDatosGenerales = {0}", id);
+                await _context.Database.ExecuteSqlRawAsync("DELETE FROM VehContratoArrendamiento WHERE idVehDatosGenerales = {0}", id);
+                await _context.Database.ExecuteSqlRawAsync("DELETE FROM VehVerificacion WHERE idVehDatosGenerales = {0}", id);
+                await _context.Database.ExecuteSqlRawAsync("DELETE FROM VehPermisoTransporte WHERE idVehDatosGenerales = {0}", id);
+
+                _repository.Remove(entity);
+                await _repository.SaveAllAsync();
+
+                await transaction.CommitAsync();
+            }
+            catch (Exception ex)
+            {
+                await transaction.RollbackAsync();
+                return StatusCode(StatusCodes.Status500InternalServerError, new ResponseWrapper<bool>
+                {
+                    StatusCode = HttpStatusCode.InternalServerError,
+                    Message = "Error al eliminar el vehÃ­culo y sus dependencias: " + ex.Message,
+                    Data = false
+                });
+            }
+
             InvalidateEntityCache(id);
             InvalidateListCache();
 

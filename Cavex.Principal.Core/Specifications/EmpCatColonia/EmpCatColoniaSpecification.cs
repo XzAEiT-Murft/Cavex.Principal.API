@@ -11,11 +11,14 @@ namespace Cavex.Principal.Core.Specifications.EmpCatColonia
 
             var skip = (pageIndex - 1) * pageSize;
             ApplyPaging(skip, pageSize);
+
+            AddInclude(x => x.EmpCatMunicipio.EmpCatEntidadFederativa);
         }
 
         public EmpCatColoniaSpecification(int id)
             : base(x => x.Id == id)
         {
+            AddInclude(x => x.EmpCatMunicipio.EmpCatEntidadFederativa);
         }
 
         private static Expression<Func<Entities.EmpCatColonia, bool>> CreateCriteria(string? search)

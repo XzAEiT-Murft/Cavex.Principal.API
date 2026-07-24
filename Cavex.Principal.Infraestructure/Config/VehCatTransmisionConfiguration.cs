@@ -24,6 +24,11 @@ namespace Cavex.Principal.Infraestructure.Config
 
             builder.Property(x => x.StrDescripcion)
                 .HasMaxLength(500);
+
+            builder.HasData(
+                new VehCatTransmision { Id = 1, StrValor = "Manual", StrDescripcion = "Transmisión manual o estándar" },
+                new VehCatTransmision { Id = 2, StrValor = "Automática", StrDescripcion = "Transmisión automática" }
+            );
         }
     }
 }

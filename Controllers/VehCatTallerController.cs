@@ -11,6 +11,8 @@ using Microsoft.Extensions.Caching.Memory;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Net;
 
+using Cavex.Principal.Core.Specifications;
+
 namespace Cavex.Principal.API.Controllers
 {
     /// <summary>

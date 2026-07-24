@@ -8,7 +8,9 @@ namespace Cavex.Principal.API.Mapping
     {
         public EmpCatColoniaProfile()
         {
-            CreateMap<EmpCatColonia, EmpCatColoniaDto>();
+            CreateMap<EmpCatColonia, EmpCatColoniaDto>()
+                .ForMember(dest => dest.StrMunicipio, opt => opt.MapFrom(src => src.EmpCatMunicipio != null ? src.EmpCatMunicipio.StrValor : null))
+                .ForMember(dest => dest.StrEstado, opt => opt.MapFrom(src => (src.EmpCatMunicipio != null && src.EmpCatMunicipio.EmpCatEntidadFederativa != null) ? src.EmpCatMunicipio.EmpCatEntidadFederativa.StrValor : null));
             CreateMap<EmpCatColoniaCreateDto, EmpCatColonia>();
             CreateMap<EmpCatColoniaUpdateDto, EmpCatColonia>();
         }

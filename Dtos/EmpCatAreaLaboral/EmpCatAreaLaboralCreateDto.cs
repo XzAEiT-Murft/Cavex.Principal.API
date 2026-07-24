@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
 namespace Cavex.Principal.API.Dtos.EmpCatAreaLaboral
 {
@@ -21,6 +21,12 @@ namespace Cavex.Principal.API.Dtos.EmpCatAreaLaboral
         /// <example>Area responsable de registros contables y financieros.</example>
         [MaxLength(450)]
         public string? StrDescripcion { get; set; }
+
+        /// <summary>
+        /// Identificador del estatus.
+        /// </summary>
+        /// <example>1</example>
+        public int IdCatStatus { get; set; } = 1;
     }
 
 }
